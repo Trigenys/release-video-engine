@@ -2,16 +2,16 @@
   "$schema": "./appfactory.schema.json",
   "schemaVersion": 2,
   "project": {
-    "name": "Demo Company",
-    "slug": "demo-company",
+    "name": "Release Video Engine",
+    "slug": "release-video-engine",
     "language": "en"
   },
   "strategy": {
-    "brief": "A professional landing page demonstrating the AppFactory brief-to-specification pipeline.",
-    "audience": "Teams evaluating automated web delivery",
+    "brief": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and brand assets into consistent marketing videos in 9:16, 1:1 and 16:9 formats. Initial audience: SaaS founders, developer-tool teams and small product teams that ship frequently but lack video-production bandwidth. Position it as CI/CD for product marketing: connect a repository, select a release, generate branded videos, then export publish-ready assets. Primary conversion goal: request early access or a demo. Avoid generic AI-video positioning; emphasize deterministic brand-safe templates, repeatability, speed and release automation.",
+    "audience": null,
     "industry": "technology",
     "tone": "professional",
-    "goal": "awareness"
+    "goal": "leads"
   },
   "brand": {
     "tone": "professional",
@@ -29,11 +29,12 @@
     "features",
     "process",
     "faq",
+    "contact",
     "final-cta"
   ],
   "seo": {
-    "title": "Demo Company — technology built for momentum.",
-    "description": "A professional landing page demonstrating the AppFactory brief-to-specification pipeline."
+    "title": "Release Video Engine — Release Video Engine, technology built for mome",
+    "description": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and bran"
   },
   "motion": {
     "level": "subtle",
@@ -42,11 +43,11 @@
   "content": {
     "hero": {
       "eyebrow": "Generated with AppFactory",
-      "title": "Demo Company, technology built for momentum.",
-      "subtitle": "A professional landing page demonstrating the AppFactory brief-to-specification pipeline.",
+      "title": "Release Video Engine, technology built for momentum.",
+      "subtitle": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and brand assets into consistent marketing videos in 9:16, 1:1 and 16:9 formats. Initial audience: SaaS founders, developer-tool teams and small product teams that ship frequently but lack video-production bandwidth. Position it as CI/CD for product marketing: connect a repository, select a release, generate branded videos, then export publish-ready assets. Primary conversion goal: request early access or a demo. Avoid generic AI-video positioning; emphasize deterministic brand-safe templates, repeatability, speed and release automation.",
       "primaryCta": {
-        "label": "Learn more",
-        "href": "#final-cta"
+        "label": "Request a quote",
+        "href": "#contact"
       },
       "secondaryCta": {
         "label": "Discover more",
@@ -131,11 +132,11 @@
       "items": [
         {
           "question": "Who is this for?",
-          "answer": "It is primarily designed for teams evaluating automated web delivery."
+          "answer": "It is for people and organizations looking for a clear approach to technology."
         },
         {
           "question": "How do I get started?",
-          "answer": "Use the primary action to start the next conversation."
+          "answer": "Use “Request a quote” to start the next conversation."
         },
         {
           "question": "What happens next?",
@@ -148,24 +149,24 @@
       "title": "Let's talk about what you need.",
       "description": "One first conversation is enough to clarify the context and identify the most useful next step.",
       "cta": {
-        "label": "Learn more",
-        "href": "#final-cta"
+        "label": "Request a quote",
+        "href": "#contact"
       }
     },
     "finalCta": {
-      "title": "Ready to move forward with Demo Company?",
+      "title": "Ready to move forward with Release Video Engine?",
       "subtitle": "Take the next step with one clear action.",
-      "label": "Learn more",
-      "href": "#"
+      "label": "Request a quote",
+      "href": "#contact"
     }
   },
   "hero": {
     "eyebrow": "Generated with AppFactory",
-    "title": "Demo Company, technology built for momentum.",
-    "subtitle": "A professional landing page demonstrating the AppFactory brief-to-specification pipeline.",
+    "title": "Release Video Engine, technology built for momentum.",
+    "subtitle": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and brand assets into consistent marketing videos in 9:16, 1:1 and 16:9 formats. Initial audience: SaaS founders, developer-tool teams and small product teams that ship frequently but lack video-production bandwidth. Position it as CI/CD for product marketing: connect a repository, select a release, generate branded videos, then export publish-ready assets. Primary conversion goal: request early access or a demo. Avoid generic AI-video positioning; emphasize deterministic brand-safe templates, repeatability, speed and release automation.",
     "primaryCta": {
-      "label": "Learn more",
-      "href": "#final-cta"
+      "label": "Request a quote",
+      "href": "#contact"
     },
     "secondaryCta": {
       "label": "Discover more",
@@ -187,9 +188,9 @@
     }
   ],
   "finalCta": {
-    "title": "Ready to move forward with Demo Company?",
+    "title": "Ready to move forward with Release Video Engine?",
     "subtitle": "Take the next step with one clear action.",
-    "label": "Learn more",
-    "href": "#"
+    "label": "Request a quote",
+    "href": "#contact"
   }
 }
