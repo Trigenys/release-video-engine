@@ -28,6 +28,12 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Typecheck Pages Functions
+        run: npm run typecheck:functions
+
+      - name: Validate early-access contract
+        run: npm run validate:funnel
+
       - name: Build
         run: npm run build
 
