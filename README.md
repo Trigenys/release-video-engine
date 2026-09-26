@@ -99,9 +99,11 @@ The GitHub backlog is managed with **AppFactory Project Automation**.
 - GitHub Actions
 - AppFactory Project Automation
 
-Planned prototype component:
+Prototype renderer:
 
 - Remotion rendering engine
+- shared release/brand contract
+- deterministic 9:16, 1:1 and 16:9 composition registry
 
 ## Development
 
@@ -114,8 +116,17 @@ Validate:
 
 ```bash
 npm run typecheck
+npm run typecheck:video
 npm run build
 ```
+
+Render the AgenFetch proof release in all supported formats:
+
+```bash
+npm run render:agenfetch
+```
+
+Outputs are written to `out/` as deterministic H.264 MP4 files for vertical, square and landscape publishing. The render job logs per-format duration and output size, preserves successful files if another format fails, and returns a failing exit code after all formats have been attempted.
 
 ## What we are deliberately not building yet
 

@@ -8,7 +8,11 @@ import {
   useCurrentFrame,
   useVideoConfig
 } from "remotion";
-import {resolveReleaseVideoSpec} from "./contracts/releaseVideo";
+import {
+  releaseVideoFormats,
+  resolveReleaseVideoSpec,
+  type ReleaseVideoFormat
+} from "./contracts/releaseVideo";
 import {agenFetchRelease} from "./data/agenfetch";
 
 const spec = resolveReleaseVideoSpec(agenFetchRelease);
@@ -530,7 +534,7 @@ function Outro() {
   );
 }
 
-export function AgenFetchReleaseVideo() {
+function VerticalReleaseCanvas() {
   return (
     <AbsoluteFill
       style={{
@@ -554,4 +558,196 @@ export function AgenFetchReleaseVideo() {
       </Sequence>
     </AbsoluteFill>
   );
+}
+
+function AdaptedFormatShell({
+  format
+}: {
+  format: Exclude<ReleaseVideoFormat, "vertical">;
+}) {
+  const frame = useCurrentFrame();
+  const {width, height, fps} = useVideoConfig();
+  const square = format === "square";
+  const safeInset = releaseVideoFormats[format].safeInset;
+  const previewHeight = square
+    ? height - safeInset * 3.5
+    : height - safeInset * 2;
+  const scale = previewHeight / releaseVideoFormats.vertical.height;
+  const previewWidth = releaseVideoFormats.vertical.width * scale;
+  const previewTop = (height - previewHeight) / 2;
+  const panelWidth = width - previewWidth - safeInset * 3;
+  const enter = spring({
+    frame,
+    fps,
+    config: {damping: 18, stiffness: 92}
+  });
+  const previewEnter = spring({
+    frame: Math.max(0, frame - 5),
+    fps,
+    config: {damping: 20, stiffness: 88}
+  });
+
+  return (
+    <AbsoluteFill
+      style={{
+        background: BG,
+        color: TEXT,
+        fontFamily: spec.brand.typography.family,
+        overflow: "hidden"
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(circle at 18% 15%, rgba(53,214,201,.16), transparent 32%), radial-gradient(circle at 78% 82%, rgba(179,62,104,.14), transparent 35%)"
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          left: safeInset,
+          top: safeInset,
+          bottom: safeInset,
+          width: panelWidth,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          opacity: enter,
+          transform: `translateX(${interpolate(enter, [0, 1], [-36, 0])}px)`
+        }}
+      >
+        <div>
+          <BrandLockup small={square} />
+
+          <div
+            style={{
+              marginTop: square ? 34 : 48,
+              color: TEAL,
+              fontSize: square ? 16 : 20,
+              fontWeight: 850,
+              textTransform: "uppercase",
+              letterSpacing: ".14em"
+            }}
+          >
+            Release {spec.product.version}
+          </div>
+
+          <div
+            style={{
+              marginTop: square ? 14 : 20,
+              maxWidth: panelWidth,
+              fontSize: square ? 45 : 76,
+              lineHeight: 0.98,
+              fontWeight: spec.brand.typography.headingWeight,
+              letterSpacing: "-0.055em"
+            }}
+          >
+            {spec.release.title}.
+          </div>
+
+          <div
+            style={{
+              marginTop: square ? 18 : 26,
+              maxWidth: panelWidth,
+              color: MUTED,
+              fontSize: square ? 21 : 30,
+              lineHeight: 1.35
+            }}
+          >
+            {spec.release.summary}
+          </div>
+
+          {!square && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 12,
+                marginTop: 34
+              }}
+            >
+              {spec.content.highlights.map((highlight) => (
+                <div
+                  key={highlight.value}
+                  style={{
+                    padding: "13px 16px",
+                    borderRadius: 14,
+                    background: "rgba(255,255,255,.055)",
+                    border: "1px solid rgba(255,255,255,.08)"
+                  }}
+                >
+                  <span style={{color: GOLD, fontSize: 20, fontWeight: 900}}>
+                    {highlight.value}
+                  </span>
+                  <span style={{color: MUTED, fontSize: 18}}>
+                    {" · "}
+                    {highlight.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div>
+          <div
+            style={{
+              display: "inline-flex",
+              padding: square ? "14px 18px" : "17px 22px",
+              borderRadius: 14,
+              background: TEAL,
+              color: "#102027",
+              fontSize: square ? 18 : 23,
+              fontWeight: 900
+            }}
+          >
+            {spec.cta.label}
+          </div>
+          <div
+            style={{
+              marginTop: 16,
+              color: "#75809a",
+              fontSize: square ? 14 : 18
+            }}
+          >
+            {spec.product.website}
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          right: safeInset,
+          top: previewTop,
+          width: releaseVideoFormats.vertical.width,
+          height: releaseVideoFormats.vertical.height,
+          overflow: "hidden",
+          borderRadius: 44,
+          boxShadow: "0 42px 100px rgba(0,0,0,.42)",
+          border: "1px solid rgba(255,255,255,.12)",
+          transformOrigin: "top right",
+          transform: `scale(${scale * interpolate(previewEnter, [0, 1], [0.96, 1])}) translateY(${interpolate(previewEnter, [0, 1], [24, 0])}px)`,
+          opacity: previewEnter
+        }}
+      >
+        <VerticalReleaseCanvas />
+      </div>
+    </AbsoluteFill>
+  );
+}
+
+export function AgenFetchReleaseVideo({
+  format
+}: {
+  format: ReleaseVideoFormat;
+}) {
+  if (format === "vertical") {
+    return <VerticalReleaseCanvas />;
+  }
+
+  return <AdaptedFormatShell format={format} />;
 }
