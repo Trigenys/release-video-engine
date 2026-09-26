@@ -3,7 +3,8 @@ import {
   ingestGitHubRelease,
   listGitHubReleaseChoices,
   normalizedGitHubReleaseSchema,
-  parseGitHubRepositoryUrl
+  parseGitHubRepositoryUrl,
+  toReleaseVideoSeed
 } from "../src/ingestion/githubRelease.ts";
 
 const repositories = [
@@ -29,6 +30,10 @@ for (const repositoryUrl of repositories) {
   assert.ok(normalized.release.summary);
   assert.ok(normalized.content.highlights.length >= 1);
   assert.ok(normalized.content.highlights.length <= 4);
+
+  const seed = toReleaseVideoSeed(normalized);
+  assert.equal(seed.product.name, normalized.repository.name);
+  assert.equal(seed.content.highlights.length, normalized.content.highlights.length);
 
   console.log(
     `[ingestion] ${normalized.repository.fullName} -> ${normalized.release.tag} · ${normalized.release.source} · ${normalized.content.highlights.length} highlight(s)`
