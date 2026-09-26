@@ -12,6 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,3 +30,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Validate public GitHub release ingestion
+        run: npm run validate:ingestion
