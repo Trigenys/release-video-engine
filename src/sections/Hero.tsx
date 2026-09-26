@@ -1,4 +1,5 @@
 import type { AppFactoryManifest } from '../types'
+import { ReleaseTransformationStage } from '../components/ReleaseTransformationStage'
 
 function industryLabel(
   industry: AppFactoryManifest['strategy']['industry'],
@@ -64,6 +65,15 @@ export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
               </a>
             )}
           </div>
+          {design.recipe === 'saas' && (
+            <div className="hero-proofline" aria-label="Product principles">
+              <span>No timeline</span>
+              <i />
+              <span>Brand-safe</span>
+              <i />
+              <span>3 formats</span>
+            </div>
+          )}
         </div>
 
         {design.recipe === 'luxury' && (
@@ -89,26 +99,13 @@ export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
         )}
 
         {design.recipe === 'saas' && (
-          <aside
-            className="hero-visual hero-product"
-            aria-label={project.language === 'fr' ? 'Aperçu produit' : 'Product preview'}
-          >
-            <div className="product-topbar">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="product-command">{project.name}</div>
-            <div className="product-grid">
-              {supportingCards.slice(0, 3).map((item, index) => (
-                <div className="product-card" key={item.title}>
-                  <span>0{index + 1}</span>
-                  <strong>{item.title}</strong>
-                  <p>{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </aside>
+          <ReleaseTransformationStage
+            repository="EagleFox31/agenfetch-desktop"
+            version="0.3.1"
+            releaseTitle="Multilingual subtitles"
+            product="AgenFetch"
+            accentLabel="Seven languages. One launch story."
+          />
         )}
 
         {design.recipe === 'corporate' && (
