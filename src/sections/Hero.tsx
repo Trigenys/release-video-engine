@@ -44,8 +44,8 @@ export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
       <nav className="nav-shell">
         <strong>{project.name}</strong>
         <div className="nav-links">
-          <a href="#capabilities">Expertise</a>
-          <a href="#contact">Contact</a>
+          <a href="#proof">Proof</a>
+          <a href="#contact">Early access</a>
         </div>
       </nav>
 
