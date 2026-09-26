@@ -1,5 +1,8 @@
 import {Composition} from "remotion";
 import {AgenFetchReleaseVideo} from "./AgenFetchReleaseVideo";
+import {releaseVideoFormats} from "./contracts/releaseVideo";
+
+const vertical = releaseVideoFormats.vertical;
 
 export function RemotionRoot() {
   return (
@@ -8,8 +11,8 @@ export function RemotionRoot() {
       component={AgenFetchReleaseVideo}
       durationInFrames={720}
       fps={30}
-      width={1080}
-      height={1920}
+      width={vertical.width}
+      height={vertical.height}
     />
   );
 }
