@@ -7,8 +7,8 @@
     "language": "en"
   },
   "strategy": {
-    "brief": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and brand assets into consistent marketing videos in 9:16, 1:1 and 16:9 formats. Initial audience: SaaS founders, developer-tool teams and small product teams that ship frequently but lack video-production bandwidth. Position it as CI/CD for product marketing: connect a repository, select a release, generate branded videos, then export publish-ready assets. Primary conversion goal: request early access or a demo. Avoid generic AI-video positioning; emphasize deterministic brand-safe templates, repeatability, speed and release automation.",
-    "audience": null,
+    "brief": "Position Release Video Engine as a creative-tech product for SaaS founders, developer-tool teams, indie makers and product marketers. The experience should make release automation feel visually desirable, not merely technical: one GitHub release becomes a consistent set of branded launch videos in 9:16, 1:1 and 16:9.",
+    "audience": "SaaS founders, developer-tool teams, indie makers, product marketers and creative operators",
     "industry": "technology",
     "tone": "professional",
     "goal": "leads"
@@ -33,8 +33,8 @@
     "final-cta"
   ],
   "seo": {
-    "title": "Release Video Engine — Release Video Engine, technology built for mome",
-    "description": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and bran"
+    "title": "Release Video Engine — Turn every release into launch-ready content",
+    "description": "Turn a public GitHub release into branded short-form launch videos for LinkedIn, X, Reels and product campaigns — without editing a timeline."
   },
   "motion": {
     "level": "subtle",
@@ -42,33 +42,33 @@
   },
   "content": {
     "hero": {
-      "eyebrow": "Generated with AppFactory",
-      "title": "Release Video Engine, technology built for momentum.",
-      "subtitle": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and brand assets into consistent marketing videos in 9:16, 1:1 and 16:9 formats. Initial audience: SaaS founders, developer-tool teams and small product teams that ship frequently but lack video-production bandwidth. Position it as CI/CD for product marketing: connect a repository, select a release, generate branded videos, then export publish-ready assets. Primary conversion goal: request early access or a demo. Avoid generic AI-video positioning; emphasize deterministic brand-safe templates, repeatability, speed and release automation.",
+      "eyebrow": "GitHub release → launch-ready video",
+      "title": "Your release notes deserve a launch.",
+      "subtitle": "Turn a public GitHub release into branded short-form videos for LinkedIn, X, Reels and product launches — without opening an editing timeline or settling for a generic AI look.",
       "primaryCta": {
-        "label": "Request a quote",
+        "label": "Try it on my release",
         "href": "#contact"
       },
       "secondaryCta": {
-        "label": "Discover more",
-        "href": "#capabilities"
+        "label": "Watch the AgenFetch proof",
+        "href": "#proof"
       }
     },
     "trust": {
-      "eyebrow": "Our approach",
-      "title": "An experience designed to build confidence.",
+      "eyebrow": "Real product proof",
+      "title": "Not a concept deck. A real release went through the engine.",
       "items": [
         {
-          "value": "Clarity",
-          "label": "A principle that guides the presentation and journey."
+          "value": "AgenFetch 0.3.1",
+          "label": "A real software release rendered end-to-end from structured product and release data."
         },
         {
-          "value": "Speed",
-          "label": "A principle that guides the presentation and journey."
+          "value": "3 formats",
+          "label": "Vertical, square and landscape outputs generated from the same release payload."
         },
         {
-          "value": "Scalability",
-          "label": "A principle that guides the presentation and journey."
+          "value": "24 sec",
+          "label": "Short enough for social, structured enough to tell the release story."
         }
       ]
     },
@@ -91,106 +91,114 @@
       ]
     },
     "features": {
-      "eyebrow": "Highlights",
-      "title": "An experience designed to be understood quickly.",
+      "eyebrow": "Creative control, without the busywork",
+      "title": "Your product keeps its identity. The release becomes content.",
       "items": [
         {
-          "title": "A clear proposition",
-          "description": "Structured content helps visitors understand the value of your technology quickly."
+          "title": "Pull the story from the release",
+          "description": "Start with what actually shipped. The engine reads the release or tag, extracts the useful changes and turns them into a structured launch narrative."
         },
         {
-          "title": "Designed to convert",
-          "description": "Content hierarchy and calls to action stay aligned with the site's primary goal."
+          "title": "Design once, reuse every launch",
+          "description": "Keep your colors, typography, logo, CTA style and motion language in a reusable brand system instead of rebuilding the visual direction every time."
         },
         {
-          "title": "Ready to evolve",
-          "description": "A modular and responsive foundation that can grow with the project."
+          "title": "Publish everywhere from one source",
+          "description": "Generate vertical, square and landscape videos from the same release payload so each channel gets the right format without three separate editing jobs."
         }
       ]
     },
     "process": {
-      "eyebrow": "Process",
-      "title": "A simple journey without friction.",
+      "eyebrow": "From changelog to launch asset",
+      "title": "No timeline. No rebuilding the story.",
       "steps": [
         {
-          "title": "Frame",
-          "description": "Clarify the need, priorities and expected outcome."
+          "title": "Connect the release",
+          "description": "Give us a public GitHub repository and choose the release you want to communicate."
         },
         {
-          "title": "Build",
-          "description": "Turn that direction into a structured and understandable response."
+          "title": "Shape the visual language",
+          "description": "Apply the product’s brand, choose the motion treatment and keep the presentation consistent with the rest of your launch."
         },
         {
-          "title": "Iterate",
-          "description": "Create an obvious next step that moves the relationship forward."
+          "title": "Render the campaign set",
+          "description": "Export a coordinated set of 9:16, 1:1 and 16:9 videos ready for the channels where your audience already lives."
         }
       ]
     },
     "faq": {
-      "eyebrow": "Frequently asked questions",
-      "title": "What to know before getting started.",
+      "eyebrow": "What creatives usually ask",
+      "title": "Automation should not flatten the creative direction.",
       "items": [
         {
-          "question": "Who is this for?",
-          "answer": "It is for people and organizations looking for a clear approach to technology."
+          "question": "Will every video look the same?",
+          "answer": "No. The template is a reusable brand system, not one universal skin. Product identity, typography, palette, motion intensity and composition rules stay configurable."
         },
         {
-          "question": "How do I get started?",
-          "answer": "Use “Request a quote” to start the next conversation."
+          "question": "Is this another generic AI video generator?",
+          "answer": "No. The current core is deterministic: structured release data goes through controlled Remotion compositions. AI can assist future workflows, but the visual result is not left to random generation."
         },
         {
-          "question": "What happens next?",
-          "answer": "The first conversation clarifies the need, priorities and the most useful next step."
+          "question": "Can I control fonts, colors, logo and motion?",
+          "answer": "Yes. Those are first-class brand inputs. The goal is repeatable creative direction, not a different aesthetic every time you ship."
+        },
+        {
+          "question": "Can I use a private repository?",
+          "answer": "The early-access workflow starts with public GitHub repositories so we can validate the product without asking for repository credentials. Private-repository support can follow once the workflow proves demand."
+        },
+        {
+          "question": "Who is this actually for?",
+          "answer": "SaaS founders, developer-tool teams, indie makers, product marketers and creative operators who ship frequently but do not want every release to become another manual video-editing task."
         }
       ]
     },
     "contact": {
-      "eyebrow": "Contact",
-      "title": "Let's talk about what you need.",
-      "description": "One first conversation is enough to clarify the context and identify the most useful next step.",
+      "eyebrow": "Early access",
+      "title": "Bring us your next release.",
+      "description": "Send a public repository, your work email and how often you ship. We’ll use a real release to show what the workflow can become for your product.",
       "cta": {
-        "label": "Request a quote",
+        "label": "Try it on my release",
         "href": "#contact"
       }
     },
     "finalCta": {
-      "title": "Ready to move forward with Release Video Engine?",
-      "subtitle": "Take the next step with one clear action.",
-      "label": "Request a quote",
+      "title": "The next release is already content. Make it look like it.",
+      "subtitle": "Early access is intentionally small while we refine the creative system with real products and real release cycles.",
+      "label": "Use my release",
       "href": "#contact"
     }
   },
   "hero": {
-    "eyebrow": "Generated with AppFactory",
-    "title": "Release Video Engine, technology built for momentum.",
-    "subtitle": "Build the go-to-market landing experience for an automated release-to-video product. The product turns GitHub releases, changelogs, product screenshots and brand assets into consistent marketing videos in 9:16, 1:1 and 16:9 formats. Initial audience: SaaS founders, developer-tool teams and small product teams that ship frequently but lack video-production bandwidth. Position it as CI/CD for product marketing: connect a repository, select a release, generate branded videos, then export publish-ready assets. Primary conversion goal: request early access or a demo. Avoid generic AI-video positioning; emphasize deterministic brand-safe templates, repeatability, speed and release automation.",
+    "eyebrow": "GitHub release → launch-ready video",
+    "title": "Your release notes deserve a launch.",
+    "subtitle": "Turn a public GitHub release into branded short-form videos for LinkedIn, X, Reels and product launches — without opening an editing timeline or settling for a generic AI look.",
     "primaryCta": {
-      "label": "Request a quote",
+      "label": "Try it on my release",
       "href": "#contact"
     },
     "secondaryCta": {
-      "label": "Discover more",
-      "href": "#capabilities"
+      "label": "Watch the AgenFetch proof",
+      "href": "#proof"
     }
   },
   "features": [
     {
-      "title": "A clear proposition",
-      "description": "Structured content helps visitors understand the value of your technology quickly."
+      "title": "Pull the story from the release",
+      "description": "Start with what actually shipped. The engine reads the release or tag, extracts the useful changes and turns them into a structured launch narrative."
     },
     {
-      "title": "Designed to convert",
-      "description": "Content hierarchy and calls to action stay aligned with the site's primary goal."
+      "title": "Design once, reuse every launch",
+      "description": "Keep your colors, typography, logo, CTA style and motion language in a reusable brand system instead of rebuilding the visual direction every time."
     },
     {
-      "title": "Ready to evolve",
-      "description": "A modular and responsive foundation that can grow with the project."
+      "title": "Publish everywhere from one source",
+      "description": "Generate vertical, square and landscape videos from the same release payload so each channel gets the right format without three separate editing jobs."
     }
   ],
   "finalCta": {
-    "title": "Ready to move forward with Release Video Engine?",
-    "subtitle": "Take the next step with one clear action.",
-    "label": "Request a quote",
+    "title": "The next release is already content. Make it look like it.",
+    "subtitle": "Early access is intentionally small while we refine the creative system with real products and real release cycles.",
+    "label": "Use my release",
     "href": "#contact"
   }
 }
