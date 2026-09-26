@@ -8,16 +8,18 @@ import {
   useCurrentFrame,
   useVideoConfig
 } from "remotion";
+import {resolveReleaseVideoSpec} from "./contracts/releaseVideo";
 import {agenFetchRelease} from "./data/agenfetch";
 
-const BG = "#121727";
-const PANEL = "#252b43";
-const PANEL_2 = "#303750";
-const TEXT = "#f7f2e8";
-const MUTED = "#9aa4bc";
-const GOLD = "#eab14a";
-const TEAL = "#35d6c9";
-const ROSE = "#b33e68";
+const spec = resolveReleaseVideoSpec(agenFetchRelease);
+const BG = spec.brand.palette.background;
+const PANEL = spec.brand.palette.surface;
+const PANEL_2 = spec.brand.palette.surfaceAlt;
+const TEXT = spec.brand.palette.text;
+const MUTED = spec.brand.palette.muted;
+const GOLD = spec.brand.palette.accent;
+const TEAL = spec.brand.palette.primary;
+const ROSE = spec.brand.palette.secondary ?? spec.brand.palette.accent;
 
 const clamp = {extrapolateLeft: "clamp", extrapolateRight: "clamp"} as const;
 
@@ -54,25 +56,49 @@ function Glow() {
 }
 
 function BrandLockup({small = false}: {small?: boolean}) {
+  const markSize = small ? 58 : 108;
+
   return (
     <div style={{display: "flex", alignItems: "center", gap: small ? 18 : 28}}>
-      <Img
-        src={staticFile("agenfetch-mark.svg")}
-        style={{width: small ? 58 : 108, height: small ? 58 : 108, borderRadius: small ? 16 : 28}}
-      />
+      {spec.brand.logo ? (
+        <Img
+          src={staticFile(spec.brand.logo)}
+          style={{
+            width: markSize,
+            height: markSize,
+            borderRadius: small ? 16 : 28
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            width: markSize,
+            height: markSize,
+            borderRadius: small ? 16 : 28,
+            display: "grid",
+            placeItems: "center",
+            color: BG,
+            background: TEAL,
+            fontSize: small ? 26 : 48,
+            fontWeight: 900
+          }}
+        >
+          {spec.brand.name.slice(0, 1).toUpperCase()}
+        </div>
+      )}
       <div>
         <div
           style={{
             color: TEXT,
             fontSize: small ? 34 : 64,
-            fontWeight: 800,
+            fontWeight: spec.brand.typography.headingWeight,
             letterSpacing: "-0.05em"
           }}
         >
-          AgenFetch
+          {spec.product.name}
         </div>
         <div style={{color: MUTED, fontSize: small ? 18 : 27, marginTop: 3}}>
-          Desktop · beta {agenFetchRelease.version}
+          {spec.product.descriptor ?? "Release"} {spec.product.version}
         </div>
       </div>
     </div>
@@ -105,7 +131,7 @@ function Intro() {
             letterSpacing: ".16em"
           }}
         >
-          Release {agenFetchRelease.version}
+          Release {spec.product.version}
         </div>
         <h1
           style={{
@@ -117,7 +143,7 @@ function Intro() {
             letterSpacing: "-0.06em"
           }}
         >
-          {agenFetchRelease.releaseTitle}.
+          {spec.release.title}.
         </h1>
         <p
           style={{
@@ -129,13 +155,13 @@ function Intro() {
             letterSpacing: "-0.02em"
           }}
         >
-          {agenFetchRelease.subheadline}
+          {spec.release.summary}
         </p>
       </div>
 
       <div style={{display: "flex", gap: 18, alignItems: "center"}}>
         <div style={{height: 4, width: 76, borderRadius: 999, background: GOLD}} />
-        <span style={{color: MUTED, fontSize: 24}}>{agenFetchRelease.platform}</span>
+        <span style={{color: MUTED, fontSize: 24}}>{spec.product.platform}</span>
       </div>
     </AbsoluteFill>
   );
@@ -193,7 +219,7 @@ function AppMockup() {
             <div key={i} style={{width: 12, height: 12, borderRadius: 99, background: c}} />
           ))}
         </div>
-        <div style={{color: "#9ca6bc", fontSize: 18}}>AgenFetch Desktop — beta 0.3.1</div>
+        <div style={{color: "#9ca6bc", fontSize: 18}}>{spec.product.name} {spec.product.descriptor ?? ""} {spec.product.version}</div>
         <div style={{width: 60}} />
       </div>
 
@@ -253,7 +279,7 @@ function AppMockup() {
                 fontWeight: 800
               }}
             >
-              BETA 0.3.1
+              BETA {spec.product.version}
             </div>
           </div>
 
@@ -324,7 +350,7 @@ function AppMockup() {
 
           <div style={{marginTop: 26, color: "#75809a", fontSize: 15, letterSpacing: ".1em"}}>LANGUES</div>
           <div style={{display: "flex", flexWrap: "wrap", gap: 10, marginTop: 12}}>
-            {agenFetchRelease.languages.map((lang, index) => (
+            {spec.template.data.languages.map((lang, index) => (
               <LanguageChip key={lang} value={lang} active={index < Math.ceil(progress / 18)} />
             ))}
           </div>
@@ -346,7 +372,7 @@ function AppMockup() {
               <div style={{height: "100%", width: `${progress}%`, borderRadius: 999, background: TEAL}} />
             </div>
             <div style={{marginTop: 14, color: "#7e89a4", fontSize: 17}}>
-              {agenFetchRelease.providers.join(" · ")}
+              {spec.template.data.providers.join(" · ")}
             </div>
           </div>
         </div>
@@ -367,7 +393,7 @@ function ProductScene() {
       }}
     >
       <div style={{width: "100%", marginBottom: 52}}>
-        <div style={{color: TEAL, fontSize: 21, fontWeight: 800, letterSpacing: ".14em"}}>NOUVEAU DANS 0.3.1</div>
+        <div style={{color: TEAL, fontSize: 21, fontWeight: 800, letterSpacing: ".14em"}}>{(spec.release.eyebrow ?? `Release ${spec.product.version}`).toUpperCase()}</div>
         <div
           style={{
             marginTop: 16,
@@ -409,7 +435,7 @@ function MetricsScene() {
         Sans lâcher le local-first.
       </div>
       <div style={{display: "grid", gap: 20, marginTop: 68}}>
-        {agenFetchRelease.highlights.map((item, index) => {
+        {spec.content.highlights.map((item, index) => {
           const local = frame - index * 12;
           const p = spring({frame: Math.max(0, local), fps: 30, config: {damping: 18}});
           return (
@@ -446,7 +472,7 @@ function MetricsScene() {
           lineHeight: 1.45
         }}
       >
-        Les clés SubDL et OpenSubtitles sont chiffrées par le stockage sécurisé Windows.
+        {spec.template.data.securityNote}
       </div>
     </AbsoluteFill>
   );
@@ -472,7 +498,7 @@ function Outro() {
             letterSpacing: "-0.06em"
           }}
         >
-          AgenFetch {agenFetchRelease.version}
+          {spec.product.name} {spec.product.version}
           <br />
           est disponible.
         </div>
@@ -488,16 +514,16 @@ function Outro() {
             fontWeight: 900
           }}
         >
-          Télécharger pour Windows
+          {spec.cta.label}
         </div>
       </div>
 
       <div>
         <div style={{height: 1, background: "rgba(255,255,255,.09)", marginBottom: 28}} />
-        <div style={{color: "#cad0db", fontSize: 24, fontWeight: 700}}>{agenFetchRelease.repo}</div>
-        <div style={{marginTop: 10, color: MUTED, fontSize: 21}}>{agenFetchRelease.site}</div>
+        <div style={{color: "#cad0db", fontSize: 24, fontWeight: 700}}>{spec.product.repository}</div>
+        <div style={{marginTop: 10, color: MUTED, fontSize: 21}}>{spec.product.website}</div>
         <div style={{marginTop: 24, color: "#69748c", fontSize: 17, lineHeight: 1.45}}>
-          Pour tes contenus, les contenus libres de droits ou ceux pour lesquels tu disposes d’une autorisation.
+          {spec.legal?.footer}
         </div>
       </div>
     </AbsoluteFill>
@@ -509,7 +535,7 @@ export function AgenFetchReleaseVideo() {
     <AbsoluteFill
       style={{
         background: BG,
-        fontFamily: 'Inter, "Segoe UI", Arial, sans-serif',
+        fontFamily: spec.brand.typography.family,
         overflow: "hidden"
       }}
     >
