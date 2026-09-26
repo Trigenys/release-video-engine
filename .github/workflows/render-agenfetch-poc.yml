@@ -10,6 +10,14 @@ on:
       - "package.json"
       - "tsconfig.video.json"
       - ".github/workflows/render-agenfetch-poc.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "video/**"
+      - "public/agenfetch-mark.svg"
+      - "package.json"
+      - "tsconfig.video.json"
+      - ".github/workflows/render-agenfetch-poc.yml"
   workflow_dispatch:
 
 permissions:
