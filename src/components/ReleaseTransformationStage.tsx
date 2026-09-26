@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 type ReleaseTransformationStageProps = {
   repository: string
   version: string
@@ -65,7 +67,7 @@ export function ReleaseTransformationStage({
           <article
             className={`release-output release-output-${format.id}`}
             key={format.id}
-            style={{ '--output-index': index } as React.CSSProperties}
+            style={{ '--output-index': index } as CSSProperties}
           >
             <div className="output-frame">
               <div className="output-noise" />
