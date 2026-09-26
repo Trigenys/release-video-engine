@@ -10,14 +10,16 @@
     "preview": "vite preview",
     "typecheck:video": "tsc -p tsconfig.video.json --noEmit",
     "render:agenfetch": "node scripts/render-agenfetch.mjs",
-    "render:agenfetch:vertical": "remotion render video/index.ts AgenFetchRelease-v031 out/agenfetch-v0.3.1-vertical.mp4 --codec=h264 --crf=20 --concurrency=2"
+    "render:agenfetch:vertical": "remotion render video/index.ts AgenFetchRelease-v031 out/agenfetch-v0.3.1-vertical.mp4 --codec=h264 --crf=20 --concurrency=2",
+    "validate:ingestion": "tsx scripts/validate-release-ingestion.mts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.13",
-    "remotion": "4.0.528"
+    "remotion": "4.0.528",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.13",
@@ -25,6 +27,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "typescript": "~5.8.3",
     "vite": "^7.1.7",
-    "@remotion/cli": "4.0.528"
+    "@remotion/cli": "4.0.528",
+    "tsx": "^4.20.0"
   }
 }
