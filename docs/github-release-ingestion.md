@@ -38,7 +38,7 @@ The normalized payload records `release.source` as either `release` or `tag`, so
 
 ## Output
 
-The normalized schema contains repository identity, release/tag metadata, a deterministic summary and 1–4 structured highlights suitable for the video contract.
+The normalized schema contains repository identity, release/tag metadata, a deterministic summary and 1–4 structured highlights. `toReleaseVideoSeed()` maps that payload directly into the product/release/content shape consumed when assembling a `ReleaseVideoSpec`.
 
 Markdown formatting and links are removed before highlight extraction. The normalizer deliberately does not use an LLM.
 
