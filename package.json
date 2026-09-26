@@ -11,7 +11,9 @@
     "typecheck:video": "tsc -p tsconfig.video.json --noEmit",
     "render:agenfetch": "node scripts/render-agenfetch.mjs",
     "render:agenfetch:vertical": "remotion render video/index.ts AgenFetchRelease-v031 out/agenfetch-v0.3.1-vertical.mp4 --codec=h264 --crf=20 --concurrency=2",
-    "validate:ingestion": "tsx scripts/validate-release-ingestion.mts"
+    "validate:ingestion": "tsx scripts/validate-release-ingestion.mts",
+    "typecheck:functions": "tsc -p tsconfig.functions.json --noEmit",
+    "validate:funnel": "tsx scripts/validate-early-access.mts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
@@ -28,6 +30,7 @@
     "typescript": "~5.8.3",
     "vite": "^7.1.7",
     "@remotion/cli": "4.0.528",
-    "tsx": "^4.20.0"
+    "tsx": "^4.20.0",
+    "@cloudflare/workers-types": "^4.20260927.0"
   }
 }
