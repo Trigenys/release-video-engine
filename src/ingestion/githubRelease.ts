@@ -67,6 +67,20 @@ export interface GitHubReleaseIngestionOptions {
   fetch?: typeof fetch;
 }
 
+export interface ReleaseVideoSeed {
+  product: {
+    name: string;
+    version: string;
+    repository: string;
+  };
+  release: {
+    title: string;
+    summary: string;
+    publishedAt?: string;
+  };
+  content: NormalizedGitHubRelease["content"];
+}
+
 type ErrorCode =
   | "invalid_repository_url"
   | "repository_not_found"
@@ -380,14 +394,39 @@ function normalizeTag(
   });
 }
 
+export function toReleaseVideoSeed(
+  normalized: NormalizedGitHubRelease
+): ReleaseVideoSeed {
+  return {
+    product: {
+      name: normalized.repository.name,
+      version: normalized.release.tag,
+      repository: normalized.repository.url
+    },
+    release: {
+      title: normalized.release.title,
+      summary: normalized.release.summary,
+      ...(normalized.release.publishedAt
+        ? {publishedAt: normalized.release.publishedAt}
+        : {})
+    },
+    content: normalized.content
+  };
+}
+
 function extractSummary(markdown: string): string | null {
-  const lines = markdown.split(/\r?\n/).map(cleanMarkdown).filter(Boolean);
-  const paragraph = lines.find(
-    (line) =>
-      !/^[-*+]\s/.test(line) &&
-      !/^\d+[.)]\s/.test(line)
-  );
-  return paragraph ? clamp(paragraph, 240) : null;
+  const paragraph = markdown
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .find(
+      (line) =>
+        line.length > 0 &&
+        !/^#{1,6}\s+/.test(line) &&
+        !/^[-*+]\s+/.test(line) &&
+        !/^\d+[.)]\s+/.test(line)
+    );
+
+  return paragraph ? clamp(cleanMarkdown(paragraph), 240) : null;
 }
 
 function extractHighlights(markdown: string) {
