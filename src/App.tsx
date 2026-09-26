@@ -1,9 +1,9 @@
 import { manifest } from './config'
 import { Hero } from './sections/Hero'
 import { FinalCta } from './sections/FinalCta'
+import { EarlyAccessSection } from './sections/EarlyAccessSection'
 import {
   CardSection,
-  ContactSection,
   FaqSection,
   ProcessSection,
   TrustSection
@@ -25,7 +25,7 @@ function renderSection(section: SectionKind) {
     case 'faq':
       return <FaqSection config={manifest.content.faq} />
     case 'contact':
-      return <ContactSection config={manifest.content.contact} />
+      return <EarlyAccessSection />
     case 'final-cta':
       return <FinalCta config={manifest.content.finalCta} language={manifest.project.language} />
     case 'testimonials':
