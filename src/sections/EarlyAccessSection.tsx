@@ -86,17 +86,17 @@ export function EarlyAccessSection() {
       <div className="early-access-panel">
         <div className="early-access-copy">
           <p className="eyebrow">Early access</p>
-          <h2>Give us one release. We&apos;ll show you the video.</h2>
+          <h2>Bring us your next release.</h2>
           <p>
             Share a public repository and how often you ship. We&apos;re
-            onboarding a small number of SaaS and developer-tool teams before
-            building self-serve billing.
+            refining the creative system with SaaS founders, devtool teams,
+            indie makers and product marketers before opening self-serve access.
           </p>
           <div className="proof-note">
-            <strong>No generic AI video.</strong>
+            <strong>No generic AI look.</strong>
             <span>
-              The output is deterministic, brand-safe and generated from the
-              release itself.
+              The release provides the story. Your brand provides the visual
+              language. The renderer keeps the result repeatable.
             </span>
           </div>
         </div>
@@ -159,7 +159,7 @@ export function EarlyAccessSection() {
           >
             {status.kind === "submitting"
               ? "Saving…"
-              : "Request an early-access demo"}
+              : "Try it on my release"}
           </button>
 
           <p className="form-privacy">
@@ -169,7 +169,7 @@ export function EarlyAccessSection() {
 
           {status.kind === "success" && (
             <div className="form-message form-message-success" role="status">
-              Request received. We&apos;ll use your repository to prepare the
+              Got it. We&apos;ll use a real release from your repository for the
               next-step demo.
             </div>
           )}
