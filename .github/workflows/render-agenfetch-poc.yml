@@ -1,0 +1,54 @@
+name: Render AgenFetch POC
+
+on:
+  push:
+    branches:
+      - feat/agenfetch-remotion-poc
+    paths:
+      - "video/**"
+      - "public/agenfetch-mark.svg"
+      - "package.json"
+      - "tsconfig.video.json"
+      - ".github/workflows/render-agenfetch-poc.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "video/**"
+      - "public/agenfetch-mark.svg"
+      - "package.json"
+      - "tsconfig.video.json"
+      - ".github/workflows/render-agenfetch-poc.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+
+      - name: Typecheck video composition
+        run: npm run typecheck:video
+
+      - name: Render AgenFetch release video
+        run: npm run render:agenfetch
+
+      - name: Upload rendered MP4
+        uses: actions/upload-artifact@v4
+        with:
+          name: agenfetch-v0.3.1-release-video
+          path: out/agenfetch-v0.3.1-vertical.mp4
+          if-no-files-found: error
+          retention-days: 14
