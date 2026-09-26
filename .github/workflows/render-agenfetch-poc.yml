@@ -1,11 +1,11 @@
-name: Render AgenFetch POC
+name: Render release formats
 
 on:
   push:
-    branches:
-      - feat/agenfetch-remotion-poc
+    branches: [main]
     paths:
       - "video/**"
+      - "scripts/render-agenfetch.mjs"
       - "public/agenfetch-mark.svg"
       - "package.json"
       - "tsconfig.video.json"
@@ -14,6 +14,7 @@ on:
     branches: [main]
     paths:
       - "video/**"
+      - "scripts/render-agenfetch.mjs"
       - "public/agenfetch-mark.svg"
       - "package.json"
       - "tsconfig.video.json"
@@ -26,7 +27,7 @@ permissions:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -39,16 +40,22 @@ jobs:
       - name: Install dependencies
         run: npm install --ignore-scripts
 
-      - name: Typecheck video composition
+      - name: Typecheck video compositions
         run: npm run typecheck:video
 
-      - name: Render AgenFetch release video
+      - name: Render all release formats
         run: npm run render:agenfetch
 
-      - name: Upload rendered MP4
+      - name: Verify expected outputs
+        run: |
+          test -s out/agenfetch-v0.3.1-vertical.mp4
+          test -s out/agenfetch-v0.3.1-square.mp4
+          test -s out/agenfetch-v0.3.1-landscape.mp4
+
+      - name: Upload rendered MP4s
         uses: actions/upload-artifact@v4
         with:
-          name: agenfetch-v0.3.1-release-video
-          path: out/agenfetch-v0.3.1-vertical.mp4
+          name: agenfetch-v0.3.1-release-videos
+          path: out/agenfetch-v0.3.1-*.mp4
           if-no-files-found: error
           retention-days: 14
