@@ -97,20 +97,20 @@ export interface ReleaseVideoSpec<TTemplateData = Record<string, unknown>> {
   };
 }
 
-export interface ResolvedReleaseVideoSpec<TTemplateData = Record<string, unknown>>
-  extends Omit<ReleaseVideoSpec<TTemplateData>, "brand" | "motion"> {
-  brand: BrandTokens & {
-    palette: BrandPalette;
-    typography: {
-      family: string;
-      headingWeight: number;
-      bodyWeight: number;
+export type ResolvedReleaseVideoSpec<TTemplateData = Record<string, unknown>> =
+  Omit<ReleaseVideoSpec<TTemplateData>, "brand" | "motion"> & {
+    brand: BrandTokens & {
+      palette: BrandPalette;
+      typography: {
+        family: string;
+        headingWeight: number;
+        bodyWeight: number;
+      };
+    };
+    motion: {
+      profile: MotionProfile;
     };
   };
-  motion: {
-    profile: MotionProfile;
-  };
-}
 
 const defaultPalette: BrandPalette = {
   background: "#10131d",
