@@ -8,7 +8,7 @@ import type {
 
 export function TrustSection({ config }: { config: TrustSectionConfig }) {
   return (
-    <section className="content-section trust-section" id="trust">
+    <section className="content-section trust-section" id="proof">
       <div className="section-heading split-heading">
         <p className="eyebrow">{config.eyebrow}</p>
         <h2>{config.title}</h2>
