@@ -1,58 +1,134 @@
-# AppFactory Landing Template
+# Release Video Engine
 
-Reusable landing page template for AppFactory, designed for automated generation, validation and deployment of high-quality websites across industries.
+Automated **release-to-video** marketing for SaaS and developer-tool teams.
 
-## Current milestone
+The product turns GitHub releases, changelogs, screenshots and brand assets into deterministic, publish-ready videos for **9:16, 1:1 and 16:9** formats.
 
-**M0 — Template Foundation**
+> CI/CD for product marketing.
 
-The template is intentionally manifest-driven. AppFactory should be able to create a repository from this template and change the business content and design direction primarily through `appfactory.json`.
+## Why this exists
+
+Shipping software is already automated. Communicating every release is not.
+
+Product teams still spend time rewriting release notes, assembling screenshots, editing timelines, resizing content for social platforms and checking brand consistency. Release Video Engine explores a narrower workflow:
 
 ```text
-appfactory.json
-      ↓
-React renderer
-      ↓
-Design recipe
-      ↓
-Production build
+GitHub release
+    ↓
+normalized release payload
+    ↓
+brand-safe video template
+    ↓
+Remotion render pipeline
+    ↓
+9:16 · 1:1 · 16:9 assets
 ```
 
-## Stack
+The first business goal is **not** to build a full self-serve SaaS. It is to validate whether teams will pay for the outcome before expanding the platform.
+
+## Initial customer
+
+Primary ICP:
+
+- SaaS founders;
+- developer-tool teams;
+- small product teams shipping frequently;
+- teams without dedicated video-production capacity.
+
+## MVP hypothesis
+
+A user should be able to:
+
+1. provide a public GitHub repository;
+2. select a release;
+3. provide screenshots and brand assets;
+4. choose a branded video template;
+5. generate release videos in multiple aspect ratios.
+
+The first proof of concept uses **Remotion** for deterministic React-based video composition.
+
+## Validation gates
+
+The project moves forward only if evidence supports it.
+
+### Gate 1 — Demand
+
+- 20 qualified prospects contacted;
+- at least 8 substantive responses or calls;
+- at least 3 demo / pilot / pricing conversations.
+
+### Gate 2 — Technical feasibility
+
+- one release payload renders a polished 20–30 second video;
+- the same payload renders 9:16, 1:1 and 16:9;
+- no manual timeline editing is required;
+- render duration and cost are measurable.
+
+### Gate 3 — Commercial signal
+
+- concierge pilot run with real prospects;
+- at least one prospect reaches a paid-pilot or explicit procurement step;
+- otherwise positioning, ICP or offer is revised before more platform work.
+
+## Product principles
+
+- **Outcome before platform** — sell the result before automating every step.
+- **Deterministic over generative chaos** — brand consistency matters more than novelty.
+- **One source, many formats** — content and brand data remain separate from composition code.
+- **Evidence before scale** — no billing system, team management or complex dashboard before demand.
+- **No fabricated proof** — no invented testimonials, logos, customer counts or performance metrics.
+
+## Repository status
+
+This repository was provisioned through **Trigenys AppFactory** as the initial go-to-market surface and product experiment.
+
+Current phases:
+
+```text
+Discovery → Validation → Prototype → Pilot → Monetization → Scale
+```
+
+The GitHub backlog is managed with **AppFactory Project Automation**.
+
+## Current stack
 
 - React 19
 - TypeScript
 - Vite
 - Tailwind CSS 4
 - GitHub Actions
+- AppFactory Project Automation
 
-## Local development
+Planned prototype component:
+
+- Remotion rendering engine
+
+## Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Validate a production build with:
+Validate:
 
 ```bash
 npm run typecheck
 npm run build
 ```
 
-## Manifest
+## What we are deliberately not building yet
 
-`appfactory.json` currently controls:
+- full video editor;
+- generic text-to-video generation;
+- social-media scheduler;
+- billing infrastructure;
+- agency workspace;
+- complex account/team permissions;
+- large template marketplace.
 
-- project identity;
-- design recipe (`corporate`, `luxury`, `saas`);
-- animation intent;
-- hero content and CTAs;
-- feature content;
-- final CTA.
+Those become relevant only after the release-to-video workflow proves demand.
 
-The contract is documented by `appfactory.schema.json`.
+## Ownership
 
-## Automation boundary
-
-This repository is a template, not the AppFactory orchestrator. The orchestrator will create new repositories from this template, write project-specific manifests, trigger CI/CD and collect deployment status.
+Trigenys internal product experiment.
