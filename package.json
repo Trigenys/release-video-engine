@@ -9,7 +9,8 @@
     "typecheck": "tsc -b --pretty false",
     "preview": "vite preview",
     "typecheck:video": "tsc -p tsconfig.video.json --noEmit",
-    "render:agenfetch": "remotion render video/index.ts AgenFetchRelease-v031 out/agenfetch-v0.3.1-vertical.mp4 --codec=h264 --crf=20 --concurrency=2"
+    "render:agenfetch": "node scripts/render-agenfetch.mjs",
+    "render:agenfetch:vertical": "remotion render video/index.ts AgenFetchRelease-v031 out/agenfetch-v0.3.1-vertical.mp4 --codec=h264 --crf=20 --concurrency=2"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
