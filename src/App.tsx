@@ -3,6 +3,7 @@ import { Hero } from './sections/Hero'
 import { FinalCta } from './sections/FinalCta'
 import { EarlyAccessSection } from './sections/EarlyAccessSection'
 import { ReleaseShowcaseGallery } from './components/ReleaseShowcaseGallery'
+import { CreativeTemplateExplorer } from './components/CreativeTemplateExplorer'
 import { MotionReveal } from './motion/MotionReveal'
 import {
   CardSection,
@@ -45,7 +46,12 @@ export default function App() {
         const content = (
           <>
             {renderSection(section)}
-            {section === 'trust' && <ReleaseShowcaseGallery />}
+            {section === 'trust' && (
+              <>
+                <ReleaseShowcaseGallery />
+                <CreativeTemplateExplorer />
+              </>
+            )}
           </>
         )
 
