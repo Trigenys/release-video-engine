@@ -32,14 +32,42 @@ test("landing has no document-level horizontal overflow", async ({page}) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");
 
-  const dimensions = await page.evaluate(() => ({
-    scrollWidth: document.documentElement.scrollWidth,
-    clientWidth: document.documentElement.clientWidth
-  }));
+  const dimensions = await page.evaluate(() => {
+    const clientWidth = document.documentElement.clientWidth;
+    const offenders = [...document.querySelectorAll<HTMLElement>("body *")]
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          tag: element.tagName.toLowerCase(),
+          id: element.id,
+          className: element.className,
+          left: Math.round(rect.left),
+          right: Math.round(rect.right),
+          width: Math.round(rect.width)
+        };
+      })
+      .filter(
+        (element) =>
+          element.width > 0 &&
+          (element.right > clientWidth + 1 || element.left < -1)
+      )
+      .sort(
+        (a, b) =>
+          Math.max(b.right - clientWidth, Math.abs(b.left)) -
+          Math.max(a.right - clientWidth, Math.abs(a.left))
+      )
+      .slice(0, 12);
+
+    return {
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth,
+      offenders
+    };
+  });
 
   expect(
     dimensions.scrollWidth,
-    `document width ${dimensions.scrollWidth}px exceeds viewport ${dimensions.clientWidth}px`
+    `document width ${dimensions.scrollWidth}px exceeds viewport ${dimensions.clientWidth}px; offenders: ${JSON.stringify(dimensions.offenders)}`
   ).toBeLessThanOrEqual(dimensions.clientWidth + 1);
 
   await expect(page.getByRole("link", {name: "Try it on my release"}).first()).toBeVisible();
