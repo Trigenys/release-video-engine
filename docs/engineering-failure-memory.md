@@ -60,3 +60,36 @@ The landing QA suite now covers:
 - JS/CSS bundle budgets.
 
 A failure in one of these checks blocks the QA workflow rather than relying on memory or visual inspection.
+
+
+## 2026-09 — First landing QA run caught three real regressions
+
+### 320px overflow
+
+**Observed:** Chromium reported a 340px document width in a 320px viewport.
+
+**Root cause:** the legacy global rule `body { min-width: 320px; }` combined badly with the mobile viewport/scrollbar model and defeated the page's narrower responsive calculations.
+
+**Fix:** remove the body minimum width and let component/container constraints define responsive width.
+
+**Guardrail:** the 320px browser invariant remains strict; the test was not weakened.
+
+### Async form success state
+
+**Observed:** the mocked early-access POST succeeded, but the success message never appeared.
+
+**Root cause:** the submit handler used `event.currentTarget.reset()` after awaited network work. React event `currentTarget` is not a safe long-lived reference across the async boundary, so the success path could throw and fall into the generic error handler.
+
+**Fix:** capture `const formElement = event.currentTarget` before the first await and use that stable DOM reference for FormData and reset.
+
+**Guardrail:** the keyboard conversion test still requires the real success state after submit.
+
+### Reduced-motion cascade conflict
+
+**Observed:** `prefers-reduced-motion: reduce` still reported `source-float` as the active animation name.
+
+**Root cause:** legacy hero animation declarations in `styles.css` came after the imported motion system and reintroduced `animation: source-float`. A global near-zero duration rule reduced the animation but did not remove it.
+
+**Fix:** centralize float ownership in `motion/motion.css` and explicitly set decorative animation names to `none !important` under reduced motion.
+
+**Guardrail:** browser QA continues to assert `animationName === "none"`; it does not accept merely tiny animation durations.
