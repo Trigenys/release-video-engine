@@ -1,6 +1,15 @@
 name: AppFactory Infrastructure
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "wrangler.jsonc"
+      - "functions/api/early-access.ts"
+      - "functions/api/early-access-health.ts"
+      - "functions/lib/early-access-schema.ts"
+      - "migrations/0001_early_access.sql"
+      - ".github/workflows/appfactory-infrastructure.yml"
   workflow_dispatch:
 
 permissions:
