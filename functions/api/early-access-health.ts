@@ -1,3 +1,5 @@
+import {ensureEarlyAccessSchema} from "../lib/early-access-schema";
+
 interface Env {
   LEADS_DB?: D1Database;
 }
@@ -31,6 +33,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
 
   try {
+    await ensureEarlyAccessSchema(db);
+
     await db.prepare("SELECT COUNT(*) AS count FROM early_access_leads").first();
     await db.prepare("SELECT COUNT(*) AS count FROM conversion_events").first();
 
