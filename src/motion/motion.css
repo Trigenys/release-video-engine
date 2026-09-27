@@ -101,6 +101,18 @@
   animation: output-float calc(var(--motion-duration-float) - 300ms) ease-in-out infinite;
 }
 
+@media (max-width: 900px) {
+  /*
+   * Horizontal pre-reveal transforms can enlarge the document scroll width on
+   * narrow viewports even when the final layout fits. Preserve the entrance
+   * choreography by switching side reveals to a vertical motion on tablet/mobile.
+   */
+  .motion-from-left,
+  .motion-from-right {
+    transform: translateY(var(--motion-distance-md));
+  }
+}
+
 @media (max-width: 680px) {
   .motion-interactive:hover,
   .motion-interactive:focus-within {
