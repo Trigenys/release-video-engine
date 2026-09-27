@@ -104,3 +104,14 @@ A failure in one of these checks blocks the QA workflow rather than relying on m
 **Fix:** constrain the tab grid item and mobile scrollport with `min-width: 0`, `max-width: 100%`, `width: 100%` and local `overflow-x: auto`.
 
 **Guardrail:** mobile QA now separately verifies that the tab row has internal horizontal overflow while its own bounding box remains inside the viewport. Intentional component scrolling is allowed; document-level scrolling is not.
+
+
+### Mobile selector changed from horizontal scroller to compact grid
+
+**Observed:** even after constraining the horizontal tab scrollport, Chromium still reported a 340px document width at a 320px viewport. The failing descendants remained the template-selector tabs.
+
+**Decision:** stop forcing horizontal scrolling at the smallest breakpoint. At <= 620px the selector now becomes a compact 2x2 grid, with secondary descriptions hidden and all four directions visible at once.
+
+**Why:** the scroller added interaction complexity without enough mobile value. The grid is simpler, more discoverable and removes the overflow class of failure entirely.
+
+**Guardrail:** the mobile QA now requires the selector and every tab to remain inside the viewport with no internal horizontal overflow.
