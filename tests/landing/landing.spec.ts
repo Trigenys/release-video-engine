@@ -76,26 +76,42 @@ test("landing has no document-level horizontal overflow", async ({page}) => {
 });
 
 
-test("mobile template tabs scroll inside their own container", async ({page}, testInfo) => {
+test("mobile template selector stays fully inside the viewport", async ({page}, testInfo) => {
   test.skip(testInfo.project.name !== "chromium-mobile-320");
 
   await page.goto("/#templates");
 
   const geometry = await page.locator(".template-tabs").evaluate((element) => {
     const rect = element.getBoundingClientRect();
+    const tabs = [...element.querySelectorAll<HTMLElement>(".template-tab")].map(
+      (tab) => {
+        const tabRect = tab.getBoundingClientRect();
+        return {
+          left: Math.round(tabRect.left),
+          right: Math.round(tabRect.right),
+          width: Math.round(tabRect.width)
+        };
+      }
+    );
 
     return {
       left: Math.round(rect.left),
       right: Math.round(rect.right),
       clientWidth: element.clientWidth,
       scrollWidth: element.scrollWidth,
-      viewportWidth: document.documentElement.clientWidth
+      viewportWidth: document.documentElement.clientWidth,
+      tabs
     };
   });
 
   expect(geometry.left).toBeGreaterThanOrEqual(0);
   expect(geometry.right).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-  expect(geometry.scrollWidth).toBeGreaterThan(geometry.clientWidth);
+  expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth + 1);
+
+  for (const tab of geometry.tabs) {
+    expect(tab.left).toBeGreaterThanOrEqual(geometry.left - 1);
+    expect(tab.right).toBeLessThanOrEqual(geometry.right + 1);
+  }
 });
 
 test("primary CTA and early-access form are keyboard usable", async ({page}) => {
