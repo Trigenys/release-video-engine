@@ -75,6 +75,29 @@ test("landing has no document-level horizontal overflow", async ({page}) => {
   await expect(page.locator("#templates")).toBeVisible();
 });
 
+
+test("mobile template tabs scroll inside their own container", async ({page}, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium-mobile-320");
+
+  await page.goto("/#templates");
+
+  const geometry = await page.locator(".template-tabs").evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+
+    return {
+      left: Math.round(rect.left),
+      right: Math.round(rect.right),
+      clientWidth: element.clientWidth,
+      scrollWidth: element.scrollWidth,
+      viewportWidth: document.documentElement.clientWidth
+    };
+  });
+
+  expect(geometry.left).toBeGreaterThanOrEqual(0);
+  expect(geometry.right).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+  expect(geometry.scrollWidth).toBeGreaterThan(geometry.clientWidth);
+});
+
 test("primary CTA and early-access form are keyboard usable", async ({page}) => {
   await page.goto("/");
 
