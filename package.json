@@ -15,7 +15,8 @@
     "typecheck:functions": "tsc -p tsconfig.functions.json --noEmit",
     "validate:funnel": "tsx scripts/validate-early-access.mts",
     "render:showcases": "node scripts/render-showcase-previews.mjs",
-    "validate:showcases": "tsx scripts/validate-showcases.mts"
+    "validate:showcases": "tsx scripts/validate-showcases.mts",
+    "validate:templates": "tsx scripts/validate-template-registry.mts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",

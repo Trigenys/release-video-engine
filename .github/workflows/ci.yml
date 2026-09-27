@@ -37,6 +37,9 @@ jobs:
       - name: Validate showcase data
         run: npm run validate:showcases
 
+      - name: Validate creative template registry
+        run: npm run validate:templates
+
       - name: Build
         run: npm run build
 
