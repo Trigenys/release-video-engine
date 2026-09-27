@@ -2,6 +2,7 @@ import { manifest } from './config'
 import { Hero } from './sections/Hero'
 import { FinalCta } from './sections/FinalCta'
 import { EarlyAccessSection } from './sections/EarlyAccessSection'
+import { ReleaseShowcaseGallery } from './components/ReleaseShowcaseGallery'
 import {
   CardSection,
   FaqSection,
@@ -42,6 +43,7 @@ export default function App() {
       {manifest.sections.map((section) => (
         <div className={`section-slot section-slot-${section}`} key={section}>
           {renderSection(section)}
+          {section === 'trust' && <ReleaseShowcaseGallery />}
         </div>
       ))}
     </main>

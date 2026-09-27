@@ -13,7 +13,9 @@
     "render:agenfetch:vertical": "remotion render video/index.ts AgenFetchRelease-v031 out/agenfetch-v0.3.1-vertical.mp4 --codec=h264 --crf=20 --concurrency=2",
     "validate:ingestion": "tsx scripts/validate-release-ingestion.mts",
     "typecheck:functions": "tsc -p tsconfig.functions.json --noEmit",
-    "validate:funnel": "tsx scripts/validate-early-access.mts"
+    "validate:funnel": "tsx scripts/validate-early-access.mts",
+    "render:showcases": "node scripts/render-showcase-previews.mjs",
+    "validate:showcases": "tsx scripts/validate-showcases.mts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",

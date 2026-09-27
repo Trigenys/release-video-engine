@@ -1,0 +1,61 @@
+name: Render showcase previews
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/data/releaseShowcases.ts"
+      - "video/showcase/**"
+      - "video/Root.tsx"
+      - "scripts/render-showcase-previews.mjs"
+      - "package.json"
+      - ".github/workflows/render-showcases.yml"
+  push:
+    branches: [main]
+    paths:
+      - "src/data/releaseShowcases.ts"
+      - "video/showcase/**"
+      - "video/Root.tsx"
+      - "scripts/render-showcase-previews.mjs"
+      - "package.json"
+      - ".github/workflows/render-showcases.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-showcases:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+
+      - name: Typecheck video compositions
+        run: npm run typecheck:video
+
+      - name: Render real release previews
+        run: npm run render:showcases
+
+      - name: Verify all expected previews
+        run: |
+          test -s out/showcases/agenfetch-v031-vertical.png
+          test -s out/showcases/remotion-v40529-square.png
+          test -s out/showcases/vite-v831-landscape.png
+
+      - name: Upload rendered previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-release-showcase-previews
+          path: out/showcases/*.png
+          if-no-files-found: error
+          retention-days: 14

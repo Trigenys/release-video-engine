@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-labelledby="t d">
+<title id="t">Remotion v4.0.529 square release preview</title>
+<desc id="d">Creator pulse template demonstration for the public Remotion v4.0.529 release.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#160f2c"/><stop offset=".5" stop-color="#321b5a"/><stop offset="1" stop-color="#172b48"/></linearGradient>
+  <radialGradient id="g"><stop stop-color="#8e7dff" stop-opacity=".6"/><stop offset="1" stop-color="#8e7dff" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1080" height="1080" rx="64" fill="url(#bg)"/>
+<circle cx="850" cy="160" r="360" fill="url(#g)"/>
+<g fill="none" stroke="#fff" stroke-opacity=".06"><path d="M0 270H1080M0 540H1080M0 810H1080"/><path d="M270 0V1080M540 0V1080M810 0V1080"/></g>
+<text x="70" y="88" fill="#c3bbff" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="4">PUBLIC RELEASE DEMO</text>
+<text x="70" y="176" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="56" font-weight="900">Remotion</text>
+<text x="70" y="226" fill="#a9a2bd" font-family="Inter,Arial,sans-serif" font-size="24">v4.0.529 · 1:1</text>
+<text x="70" y="420" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="92" font-weight="900">Motion blur</text>
+<text x="70" y="510" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="92" font-weight="900">meets paths.</text>
+<text x="70" y="568" fill="#c0b8d5" font-family="Inter,Arial,sans-serif" font-size="28">Plus media and compositor fixes in one release.</text>
+<g transform="translate(70 650)">
+  <rect width="940" height="220" rx="34" fill="#221840" stroke="#fff" stroke-opacity=".11"/>
+  <path d="M60 160 C180 40 270 190 390 80 S600 190 760 70 890 150 900 110" fill="none" stroke="#8e7dff" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="248" cy="111" r="24" fill="#ff7fa8"/><circle cx="620" cy="126" r="22" fill="#35d6c9"/>
+</g>
+<text x="70" y="954" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="800">Creator pulse</text>
+<text x="70" y="1000" fill="#9e97b0" font-family="Inter,Arial,sans-serif" font-size="22">release-aware · controlled motion · repeatable</text>
+</svg>

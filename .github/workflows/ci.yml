@@ -34,6 +34,9 @@ jobs:
       - name: Validate early-access contract
         run: npm run validate:funnel
 
+      - name: Validate showcase data
+        run: npm run validate:showcases
+
       - name: Build
         run: npm run build
 
