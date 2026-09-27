@@ -16,7 +16,10 @@
     "validate:funnel": "tsx scripts/validate-early-access.mts",
     "render:showcases": "node scripts/render-showcase-previews.mjs",
     "validate:showcases": "tsx scripts/validate-showcases.mts",
-    "validate:templates": "tsx scripts/validate-template-registry.mts"
+    "validate:templates": "tsx scripts/validate-template-registry.mts",
+    "qa:landing": "playwright test",
+    "qa:budget": "node scripts/check-web-budget.mjs",
+    "qa": "npm run build && npm run qa:budget && npm run qa:landing"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
@@ -34,6 +37,8 @@
     "vite": "^7.1.7",
     "@remotion/cli": "4.0.528",
     "tsx": "^4.20.0",
-    "@cloudflare/workers-types": "5.20260926.1"
+    "@cloudflare/workers-types": "5.20260926.1",
+    "@playwright/test": "^1.55.0",
+    "@axe-core/playwright": "^4.10.2"
   }
 }
