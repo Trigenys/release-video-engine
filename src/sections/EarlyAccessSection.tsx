@@ -32,10 +32,11 @@ export function EarlyAccessSection() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setStatus({kind: "submitting"});
     setFieldErrors({});
 
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(formElement);
     const payload: EarlyAccessPayload = {
       email: String(form.get("email") ?? ""),
       repositoryUrl: String(form.get("repositoryUrl") ?? ""),
@@ -71,7 +72,7 @@ export function EarlyAccessSection() {
         return;
       }
 
-      event.currentTarget.reset();
+      formElement.reset();
       setStatus({kind: "success"});
     } catch {
       setStatus({

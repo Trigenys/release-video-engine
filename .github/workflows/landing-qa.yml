@@ -1,0 +1,67 @@
+name: Landing QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "tests/landing/**"
+      - "playwright.config.ts"
+      - "scripts/check-web-budget.mjs"
+      - "package.json"
+      - ".github/workflows/landing-qa.yml"
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "tests/landing/**"
+      - "playwright.config.ts"
+      - "scripts/check-web-budget.mjs"
+      - "package.json"
+      - ".github/workflows/landing-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  landing-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build landing
+        run: npm run build
+
+      - name: Enforce web bundle budgets
+        run: npm run qa:budget
+
+      - name: Run landing browser QA
+        run: npm run qa:landing
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: landing-qa-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
