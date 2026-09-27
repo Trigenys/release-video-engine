@@ -93,3 +93,14 @@ A failure in one of these checks blocks the QA workflow rather than relying on m
 **Fix:** centralize float ownership in `motion/motion.css` and explicitly set decorative animation names to `none !important` under reduced motion.
 
 **Guardrail:** browser QA continues to assert `animationName === "none"`; it does not accept merely tiny animation durations.
+
+
+### Mobile template tab scroller leaked into document width
+
+**Observed:** after removing the global body minimum width, the document still measured 340px in a 320px viewport. Diagnostic output identified off-screen `.template-tab` descendants as the source.
+
+**Root cause:** the intentionally horizontally scrollable tab row lived inside a grid item with the default min-content sizing behavior. The children were allowed to extend for local scrolling, but the grid item itself was not explicitly shrinkable.
+
+**Fix:** constrain the tab grid item and mobile scrollport with `min-width: 0`, `max-width: 100%`, `width: 100%` and local `overflow-x: auto`.
+
+**Guardrail:** mobile QA now separately verifies that the tab row has internal horizontal overflow while its own bounding box remains inside the viewport. Intentional component scrolling is allowed; document-level scrolling is not.
