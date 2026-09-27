@@ -115,3 +115,14 @@ A failure in one of these checks blocks the QA workflow rather than relying on m
 **Why:** the scroller added interaction complexity without enough mobile value. The grid is simpler, more discoverable and removes the overflow class of failure entirely.
 
 **Guardrail:** the mobile QA now requires the selector and every tab to remain inside the viewport with no internal horizontal overflow.
+
+
+### Horizontal reveal transform widened the document before reveal
+
+**Observed:** after the template-selector fixes, the 320px document still measured exactly 340px. The diagnostic showed `.hero-stage-motion` itself at `left: 48px; right: 340px; width: 292px`.
+
+**Root cause:** the mobile layout was actually 292px wide and correctly sized. The extra 34px came from the pre-reveal `.motion-from-right { transform: translateX(34px) }`. CSS transforms participate in visual overflow, so the entrance animation widened the page before IntersectionObserver switched the element to its final state.
+
+**Fix:** at <= 900px, side-origin reveals become vertical `translateY` reveals. Desktop keeps the horizontal choreography; narrow viewports never pay for it with document overflow.
+
+**Guardrail:** the existing 320px document-width assertion remains unchanged. We fixed the motion primitive rather than hiding overflow or weakening the test.
