@@ -241,7 +241,7 @@ button, input, textarea, select { font: inherit; }
 }
 
 @media (max-width: 560px) {
-  .hero-shell, .content-section, .cta-shell { width: min(100% - 28px, 1180px); }
+  .hero-shell, .content-section, .cta-shell { width: min(calc(100% - 28px), 1180px); }
   .nav-links a:first-child { display: none; }
   .hero-copy h1 { font-size: clamp(3rem, 16vw, 4.7rem); }
   .hero-editorial { padding: 28px; }
@@ -1814,6 +1814,36 @@ button, input, textarea, select { font: inherit; }
   .template-explorer-section {
     padding-top: 88px;
     padding-bottom: 88px;
+  }
+
+  .template-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+  }
+
+  .template-tab {
+    min-width: 0;
+    min-height: 76px;
+    padding: 13px 12px;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 8px;
+    align-items: center;
+  }
+
+  .template-tab > span {
+    font-size: .62rem;
+  }
+
+  .template-tab strong {
+    font-size: .86rem;
+  }
+
+  .template-tab small {
+    display: none;
   }
 
   .template-preview {
