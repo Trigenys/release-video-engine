@@ -1287,3 +1287,16 @@ button, input, textarea { font: inherit; }
     transform: none;
   }
 }
+
+
+.hero-stage-motion {
+  min-width: 0;
+}
+
+.hero-stage-motion .release-stage {
+  height: 100%;
+}
+
+.section-slot.motion-reveal {
+  width: 100%;
+}
