@@ -1338,6 +1338,8 @@ button, input, textarea, select { font: inherit; }
 }
 
 .template-tabs {
+  min-width: 0;
+  max-width: 100%;
   display: grid;
   gap: 10px;
   align-content: start;
@@ -1781,15 +1783,21 @@ button, input, textarea, select { font: inherit; }
   }
 
   .template-explorer-layout {
-    grid-template-columns: 1fr;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .template-tabs {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     display: flex;
     gap: 8px;
     overflow-x: auto;
+    overflow-y: hidden;
     padding-bottom: 6px;
     scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
   }
 
   .template-tab {
