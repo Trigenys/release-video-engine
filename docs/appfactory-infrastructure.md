@@ -1,25 +1,23 @@
-# AppFactory infrastructure boundary
+# Release Video Engine Pages + D1
 
-Release Video Engine does not own Cloudflare account credentials in GitHub.
+Production Pages and D1 are linked by `wrangler.jsonc` in this repository.
+The Pages Git integration deploys `main`; `LEADS_DB` points to the existing
+`release-video-engine-leads` database. Preview deployments have no production
+D1 binding.
 
-The canonical infrastructure workflow is:
+The first successful request to `/api/early-access-health` applies the
+idempotent initial schema to the bound database using the D1 binding API. The
+same initialization runs before a lead submission if health has not yet been
+requested. `migrations/0001_early_access.sql` remains the SQL reference.
+A later schema change needs an explicit migration; do not modify this initial
+bootstrap and assume it upgrades populated databases.
 
-`.github/workflows/appfactory-infrastructure.yml`
+The GitHub infrastructure workflow waits for production health and runs the
+idempotency smoke. It does not call AppFactory's Cloudflare REST broker or
+require a GitHub Cloudflare API token. The other AppFactory provisioning
+routes and their credentials are independent of this Pages project.
 
-It requests a short-lived GitHub Actions OIDC token and calls:
-
-`POST https://appfactory-api.lawrynnjennifer.workers.dev/infrastructure/pages-d1`
-
-AppFactory owns the Cloudflare API token and account ID at runtime.
-
-For the `early-access-leads` recipe AppFactory derives:
-
-- Pages project: `release-video-engine`
-- D1 database: `release-video-engine-leads`
-- binding: `LEADS_DB`
-
-Then it applies the idempotent migration, binds D1 to production/preview Pages environments, triggers a deployment, and returns the deployment identifiers.
-
-The repository workflow waits for `/api/early-access-health` and executes the stable idempotent production smoke.
-
-No repository-level `CLOUDFLARE_API_TOKEN` or `CLOUDFLARE_ACCOUNT_ID` is required.
+The Pages Wrangler file is the deployment configuration source of truth.
+Before changing other Pages settings, preserve the current production
+configuration in that file. The D1 binding takes effect on the next production
+deployment.

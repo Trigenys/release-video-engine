@@ -1,3 +1,4 @@
+import {ensureEarlyAccessSchema} from "../lib/early-access-schema";
 import {
   normalizedLeadKey,
   validateEarlyAccessPayload
@@ -56,6 +57,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   try {
+    await ensureEarlyAccessSchema(db);
+
     const lead = await db.prepare(
       `INSERT INTO early_access_leads (
         id,
