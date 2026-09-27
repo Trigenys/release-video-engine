@@ -4,7 +4,7 @@ import {
 } from "../../shared/earlyAccess";
 
 interface Env {
-  LEADS_DB: D1Database;
+  LEADS_DB?: D1Database;
 }
 
 function json(body: unknown, status = 200) {
@@ -42,9 +42,21 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const data = validation.data;
   const idempotencyKey = normalizedLeadKey(data);
   const id = crypto.randomUUID();
+  const db = context.env.LEADS_DB;
+
+  if (!db) {
+    return json(
+      {
+        ok: false,
+        error: "configuration_error",
+        message: "LEADS_DB binding is not configured."
+      },
+      503
+    );
+  }
 
   try {
-    const lead = await context.env.LEADS_DB.prepare(
+    const lead = await db.prepare(
       `INSERT INTO early_access_leads (
         id,
         idempotency_key,
@@ -78,7 +90,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       return json({ok: false, error: "persistence_failed"}, 500);
     }
 
-    await context.env.LEADS_DB.prepare(
+    await db.prepare(
       `INSERT OR IGNORE INTO conversion_events (
         id,
         lead_id,
