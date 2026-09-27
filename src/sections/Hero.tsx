@@ -1,5 +1,6 @@
 import type { AppFactoryManifest } from '../types'
 import { ReleaseTransformationStage } from '../components/ReleaseTransformationStage'
+import { MotionReveal } from '../motion/MotionReveal'
 
 function industryLabel(
   industry: AppFactoryManifest['strategy']['industry'],
@@ -51,7 +52,7 @@ export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
       </nav>
 
       <div className="hero-grid">
-        <div className="hero-copy">
+        <MotionReveal className="hero-copy" origin="left">
           {config.eyebrow && <p className="eyebrow">{config.eyebrow}</p>}
           <h1>{config.title}</h1>
           <p className="hero-subtitle">{config.subtitle}</p>
@@ -74,7 +75,7 @@ export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
               <span>3 formats</span>
             </div>
           )}
-        </div>
+        </MotionReveal>
 
         {design.recipe === 'luxury' && (
           <aside
@@ -99,13 +100,15 @@ export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
         )}
 
         {design.recipe === 'saas' && (
-          <ReleaseTransformationStage
-            repository="EagleFox31/agenfetch-desktop"
-            version="0.3.1"
-            releaseTitle="Multilingual subtitles"
-            product="AgenFetch"
-            accentLabel="Seven languages. One launch story."
-          />
+          <MotionReveal className="hero-stage-motion" origin="right" delayMs={90}>
+            <ReleaseTransformationStage
+              repository="EagleFox31/agenfetch-desktop"
+              version="0.3.1"
+              releaseTitle="Multilingual subtitles"
+              product="AgenFetch"
+              accentLabel="Seven languages. One launch story."
+            />
+          </MotionReveal>
         )}
 
         {design.recipe === 'corporate' && (

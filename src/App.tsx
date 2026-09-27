@@ -3,6 +3,7 @@ import { Hero } from './sections/Hero'
 import { FinalCta } from './sections/FinalCta'
 import { EarlyAccessSection } from './sections/EarlyAccessSection'
 import { ReleaseShowcaseGallery } from './components/ReleaseShowcaseGallery'
+import { MotionReveal } from './motion/MotionReveal'
 import {
   CardSection,
   FaqSection,
@@ -40,12 +41,32 @@ export default function App() {
     <main
       className={`site recipe-${manifest.design.recipe} palette-${manifest.brand.palette} typography-${manifest.brand.typography} density-${manifest.design.density} motion-${manifest.motion.level}`}
     >
-      {manifest.sections.map((section) => (
-        <div className={`section-slot section-slot-${section}`} key={section}>
-          {renderSection(section)}
-          {section === 'trust' && <ReleaseShowcaseGallery />}
-        </div>
-      ))}
+      {manifest.sections.map((section, index) => {
+        const content = (
+          <>
+            {renderSection(section)}
+            {section === 'trust' && <ReleaseShowcaseGallery />}
+          </>
+        )
+
+        if (section === 'hero') {
+          return (
+            <div className={`section-slot section-slot-${section}`} key={section}>
+              {content}
+            </div>
+          )
+        }
+
+        return (
+          <MotionReveal
+            className={`section-slot section-slot-${section}`}
+            delayMs={Math.min(index * 24, 96)}
+            key={section}
+          >
+            {content}
+          </MotionReveal>
+        )
+      })}
     </main>
   )
 }

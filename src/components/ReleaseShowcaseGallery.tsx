@@ -1,5 +1,6 @@
 import { releaseShowcases } from "../data/releaseShowcases";
 import { ShowcaseMediaPreview } from "./ShowcaseMediaPreview";
+import { MotionReveal } from "../motion/MotionReveal";
 
 export function ReleaseShowcaseGallery() {
   return (
@@ -16,8 +17,13 @@ export function ReleaseShowcaseGallery() {
       </div>
 
       <div className="showcase-grid">
-        {releaseShowcases.map((showcase) => (
-          <article className="showcase-card" key={showcase.id}>
+        {releaseShowcases.map((showcase, index) => (
+          <MotionReveal
+            as="article"
+            className="showcase-card motion-interactive"
+            delayMs={index * 70}
+            key={showcase.id}
+          >
             <ShowcaseMediaPreview showcase={showcase} />
 
             <div className="showcase-card-body">
@@ -52,7 +58,7 @@ export function ReleaseShowcaseGallery() {
                 </span>
               </div>
             </div>
-          </article>
+          </MotionReveal>
         ))}
       </div>
 
