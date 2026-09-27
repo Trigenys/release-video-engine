@@ -51,7 +51,7 @@ test("primary CTA and early-access form are keyboard usable", async ({page}) => 
   await page.goto("/");
 
   await tabUntil(page, 'a[href="#contact"].button-primary');
-  await expect(page.locator('a[href="#contact"].button-primary')).toBeFocused();
+  await expect(page.locator('a[href="#contact"].button-primary').first()).toBeFocused();
   await page.keyboard.press("Enter");
 
   await tabUntil(page, 'input[name="email"]');
