@@ -1,0 +1,30 @@
+name: Funnel production smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Production or preview base URL"
+        required: true
+        default: "https://release-video-engine.pages.dev"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify persisted funnel
+        env:
+          FUNNEL_BASE_URL: ${{ inputs.base_url }}
+        run: node scripts/smoke-early-access.mjs
