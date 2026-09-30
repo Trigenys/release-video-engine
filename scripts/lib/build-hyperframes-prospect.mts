@@ -169,7 +169,7 @@ export function buildProspectHyperframes(options: ProspectHyperframesOptions) {
       padding: 11px 17px;
       border: 1px solid ${spec.brand.palette.primary}66;
       border-radius: 999px;
-      color: ${spec.brand.palette.primary};
+      color: ${spec.brand.palette.secondary ?? spec.brand.palette.text};
       background: ${spec.brand.palette.primary}16;
       font-size: 18px;
       font-weight: 700;
@@ -237,7 +237,7 @@ export function buildProspectHyperframes(options: ProspectHyperframesOptions) {
       backdrop-filter: blur(10px);
     }
     .changes-kicker {
-      color: ${spec.brand.palette.primary};
+      color: ${spec.brand.palette.secondary ?? spec.brand.palette.text};
       font-size: 18px;
       font-weight: 700;
       letter-spacing: .11em;
