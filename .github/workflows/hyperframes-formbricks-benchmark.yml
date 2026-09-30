@@ -13,6 +13,7 @@ on:
       - "video/data/formbricks.ts"
       - "package.json"
       - ".github/workflows/hyperframes-formbricks-benchmark.yml"
+      - "docs/hyperframes-renderer-spike.md"
   workflow_dispatch:
 
 permissions:
