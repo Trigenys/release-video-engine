@@ -8,9 +8,7 @@ Feeds: #7 and #8
 
 The first Formbricks renderer benchmark proved that HyperFrames could consume the shared `ReleaseVideoSpec` and materially reduce render time for a text/card composition.
 
-That was not enough evidence to promote it.
-
-This gate asks whether the advantage survives when a release video behaves more like a real marketing asset.
+This gate asks whether that advantage survives when a release video behaves more like a real marketing asset.
 
 ## Shared input
 
@@ -18,7 +16,7 @@ Both engines consume:
 
 `video/data/formbricksMediaHeavy.ts#formbricksMediaHeavyRelease`
 
-That spec extends the existing Formbricks 6.0.1 pilot release rather than copying the product/release data.
+That spec extends the existing Formbricks 6.0.1 pilot release rather than copying product/release data.
 
 ## Media exercised
 
@@ -41,7 +39,7 @@ Each renderer produces:
 - 16:9 EN;
 - 16:9 FR.
 
-All videos are 24 seconds at 30 fps.
+All videos target 24 seconds at 30 fps.
 
 ## Measurements
 
@@ -55,119 +53,102 @@ Each render records:
 
 The CI job writes renderer-specific JSON reports plus an automatically generated side-by-side comparison.
 
-## Decision rule
+## Final benchmark evidence
 
-Do not promote HyperFrames merely because it wins wall-clock time.
-
-Promotion requires:
-
-1. successful render in every output slot;
-2. no screenshot crop/focal-point regression;
-3. no font-loading regression;
-4. audible deterministic audio;
-5. readable timed captions;
-6. French copy without layout breakage;
-7. operational resource usage that does not erase the render-time benefit.
-
-Until those checks pass, the previous decision remains:
-
-`Remotion = stable baseline`  
-`HyperFrames = experimental creative renderer`
-
-## Results
-
-CI run `36771151913` completed successfully with all eight MP4 outputs, both benchmark JSON reports and the generated comparison report.
+CI run `36772390469` completed successfully with all eight MP4 outputs, both benchmark JSON reports and the generated comparison report.
 
 ### Wall-clock render time
 
 | Format | Locale | Remotion | HyperFrames | HyperFrames speedup |
 | --- | --- | ---: | ---: | ---: |
-| 9:16 | EN | 47.019 s | 30.844 s | 1.52× |
-| 1:1 | EN | 29.471 s | 23.228 s | 1.27× |
-| 16:9 | EN | 37.157 s | 31.021 s | 1.20× |
-| 16:9 | FR | 38.167 s | 31.945 s | 1.19× |
-| **Total** |  | **151.814 s** | **117.038 s** | **1.30×** |
+| 9:16 | EN | 59.001 s | 39.099 s | 1.51× |
+| 1:1 | EN | 35.824 s | 29.947 s | 1.20× |
+| 16:9 | EN | 48.455 s | 40.241 s | 1.20× |
+| 16:9 | FR | 49.449 s | 41.189 s | 1.20× |
+| **Total** |  | **192.729 s** | **150.476 s** | **1.28×** |
 
-HyperFrames reduced total wall-clock render time by about **22.9%** in this media-heavy run.
+HyperFrames reduced aggregate wall-clock render time by about **21.9%** in this media-heavy run.
 
-The advantage is real, but substantially smaller than the earlier text/card benchmark where HyperFrames was roughly 2×–2.45× faster.
+That advantage is real but materially smaller than the earlier text/card benchmark, where HyperFrames was roughly 2×–2.45× faster.
 
 ### Output size
 
 - Remotion aggregate: **9.61 MiB**
-- HyperFrames aggregate: **12.42 MiB**
+- HyperFrames aggregate: **12.43 MiB**
 - HyperFrames delta: **+29.3%**
 
-The current encoder/settings are therefore not size-equivalent even though the visual target is equivalent. This is a production consideration, especially for social delivery and storage.
+The current encoder/settings are therefore not size-equivalent. This matters for social delivery, storage and egress.
 
 ### Memory
 
-- Remotion peak RSS, max single render: **1232.3 MiB**
-- HyperFrames peak RSS, max single render: **534.9 MiB**
-- HyperFrames peak-RSS delta: **-56.6%**
+- Remotion peak RSS, max single render: **1231.9 MiB**
+- HyperFrames peak RSS, max single render: **516.5 MiB**
+- HyperFrames peak-RSS delta: **-58.1%**
 
-This is the strongest operational HyperFrames advantage in the media-heavy benchmark.
+Lower peak memory is HyperFrames' strongest operational advantage in this media-heavy benchmark.
 
 ### CPU
 
-- Remotion aggregate user + system CPU time: **116.97 s**
-- HyperFrames aggregate user + system CPU time: **229.97 s**
+- Remotion aggregate user + system CPU time: **143.11 s**
+- HyperFrames aggregate user + system CPU time: **295.32 s**
 
-HyperFrames used about **96.6% more CPU time** despite finishing sooner in wall-clock time. That suggests more parallel/active work rather than a simple across-the-board efficiency gain.
+HyperFrames used about **106.4% more CPU time** despite finishing sooner in wall-clock time. The wall-time improvement therefore should not be treated as an automatic cost reduction.
 
 ### Audio verification
 
-Both sampled 16:9 EN outputs contain AAC audio at 48 kHz stereo.
+`ffprobe` confirmed an AAC audio stream in **all eight** generated MP4s.
 
-The deterministic audio bed measured identically in both sampled outputs:
+- HyperFrames outputs: 24.000 s
+- Remotion outputs: 24.043 s
 
-- mean volume: **-47.2 dB**
-- max volume: **-35.0 dB**
-
-This confirms that the audio path is present on both renderers rather than silently dropping media.
+The deterministic audio path is therefore present in both renderers rather than being silently dropped.
 
 ### Visual review
 
-Representative frames were reviewed at 2 s, 8 s, 12 s and 20 s for EN and FR landscape outputs, plus 8 s crop checks for 9:16 and 1:1.
+Representative rendered frames were reviewed from the actual CI artifact:
+
+- landscape EN at 3 s, 10 s and 20 s;
+- landscape FR at 10 s;
+- 9:16 EN at 10 s and 12 s;
+- 1:1 EN at 10 s.
 
 Observed:
 
-- EN and FR copy remain inside the intended layout;
-- timed captions remain readable in the sampled frames;
+- EN and FR copy remain inside the intended layouts;
+- timed captions are readable in sampled scenes;
 - the real public Formbricks screenshot renders in both engines;
-- both renderers preserve the declared 50% × 43% focal point;
-- HyperFrames uses a more aggressive full-frame `cover` crop in vertical, while Remotion keeps more screenshot chrome inside its framed media panel;
-- that difference is an art-direction/layout difference, not a focal-point failure;
+- both preserve the declared 50% × 43% focal point;
+- HyperFrames uses a more media-forward full-frame crop while Remotion keeps the screenshot inside a framed panel;
+- that difference is art direction, not a focal-point failure;
 - no sampled frame showed clipping that invalidates the benchmark;
-- HyperFrames check passed all four generated projects after removing real caption/text-zone overlaps rather than suppressing the validator.
+- HyperFrames `check` passes all four generated projects after fixing a real scene-overlap error rather than suppressing the validator.
 
 Artifact: `formbricks-6.0.1-media-heavy-renderer-benchmark`  
-Artifact ID: `11123787504`  
-Artifact SHA-256: `74f6b88a8d2bb68e126dbb9e07f8dbe8283c3b866a174ddc896eb9a181b936d4`
+Artifact ID: `11123829071`  
+Artifact SHA-256: `9f6b3ce8ec11e067de424523f0245e3f5bd29aa70b895538ee483fbfa050d5c5`
 
-## Decision — ADAPT remains
+## Decision — ADAPT, promote HyperFrames to supported secondary renderer
 
-Do **not** promote HyperFrames to the sole/default renderer yet.
+Do **not** make HyperFrames the global/default renderer yet.
 
-The media-heavy evidence strengthens the case for keeping HyperFrames available:
+The media-heavy gate is strong enough to move HyperFrames beyond a throwaway experiment:
 
-- faster wall-clock rendering;
-- dramatically lower peak memory;
-- deterministic screenshot, font, audio and caption handling;
-- successful EN/FR localization;
-- strong suitability for HTML/CSS/GSAP-driven creative templates.
+- it renders all required aspect-ratio/locale variants;
+- screenshot, focal-point, bundled fonts, audio and captions work deterministically;
+- visual quality remains valid across the sampled outputs;
+- wall-clock time remains lower;
+- peak memory is dramatically lower.
 
-But the same evidence also exposes trade-offs:
+So the operating architecture becomes:
 
-- the speed advantage shrinks materially once real media is involved;
-- output files are about 29% larger with the current settings;
-- CPU time is almost double Remotion in this run;
-- the two engines naturally express crop/layout differently even when they share the same media contract.
+```text
+ReleaseVideoSpec
+    ├── Remotion     = default / stable baseline
+    └── HyperFrames  = supported opt-in creative renderer
+```
 
-Current operating decision:
+HyperFrames is a good candidate when rapid wall-clock rendering, lower peak memory or HTML/CSS/GSAP-heavy creative work matters.
 
-`ReleaseVideoSpec`
-- `Remotion` = stable baseline / resource-efficient CPU path
-- `HyperFrames` = experimental creative renderer / lower-memory, faster-wall-time path
+Remotion remains the default while #8 translates the observed resource profile into actual unit economics. HyperFrames' ~2.06× CPU time and ~29% larger aggregate output could offset its wall-time and memory advantages depending on where renders run and how compute/storage/egress are billed.
 
-The next renderer decision should come from product economics in #8, including where renders will actually run and what wall time, CPU, memory, egress and storage cost there.
+The next decision is therefore economic, not functional: #36 establishes media-heavy parity; #8 determines whether HyperFrames should become the default renderer for new templates.
