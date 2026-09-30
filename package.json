@@ -20,7 +20,11 @@
     "qa:landing": "playwright test",
     "qa:budget": "node scripts/check-web-budget.mjs",
     "qa": "npm run build && npm run qa:budget && npm run qa:landing",
-    "render:formbricks": "node scripts/render-formbricks.mjs"
+    "render:formbricks": "node scripts/render-formbricks.mjs",
+    "build:hyperframes:formbricks": "tsx scripts/build-hyperframes-formbricks.mts",
+    "check:hyperframes:formbricks": "npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1/vertical && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1/square && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1/landscape",
+    "render:hyperframes:formbricks": "node scripts/render-hyperframes-formbricks.mjs",
+    "benchmark:hyperframes:formbricks": "npm run build:hyperframes:formbricks && npm run check:hyperframes:formbricks && npm run render:hyperframes:formbricks"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
