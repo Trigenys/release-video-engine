@@ -291,13 +291,16 @@ export function buildProspectHyperframes(options: ProspectHyperframesOptions) {
       padding: ${Math.round(safe * 1.4)}px;
       text-align: center;
     }
-    .outro-logo {
+    .outro-mark {
+      display: grid;
       width: ${vertical ? 132 : 106}px;
       height: ${vertical ? 132 : 106}px;
-      object-fit: contain;
+      place-items: center;
       border-radius: 28px;
-      background: rgba(255,255,255,.96);
-      padding: 14px;
+      background: linear-gradient(145deg, ${spec.brand.palette.primary}, ${spec.brand.palette.accent});
+      color: #ffffff;
+      font-size: ${vertical ? 66 : 52}px;
+      font-weight: 700;
       box-shadow: 0 26px 80px ${spec.brand.palette.primary}35;
     }
     .cta {
@@ -378,7 +381,7 @@ export function buildProspectHyperframes(options: ProspectHyperframesOptions) {
     </section>
 
     <section id="outro" class="clip outro" data-start="18" data-duration="6" data-track-index="2">
-      <img id="outro-logo" class="outro-logo" src="assets/logo.png" alt="" />
+      <div id="outro-mark" class="outro-mark">L</div>
       <div id="cta" class="cta">${escapeHtml(spec.cta.label)}</div>
       <div id="supporting" class="supporting">${escapeHtml(spec.cta.supportingText)}</div>
       <div class="legal">${escapeHtml(spec.legal?.footer)}</div>
@@ -420,7 +423,7 @@ export function buildProspectHyperframes(options: ProspectHyperframesOptions) {
     timeline
       .to("#changes-card", {opacity: 0, x: 34, duration: .4, ease: "power2.in"}, 17.45)
       .to("#release-media", {opacity: 0, scale: 1.015, duration: .42, ease: "power2.in"}, 17.5)
-      .fromTo("#outro-logo", {opacity: 0, scale: .82, rotate: -5}, {opacity: 1, scale: 1, rotate: 0, duration: .66, ease: "back.out(1.4)"}, 18.08)
+      .fromTo("#outro-mark", {opacity: 0, scale: .82, rotate: -5}, {opacity: 1, scale: 1, rotate: 0, duration: .66, ease: "back.out(1.4)"}, 18.08)
       .fromTo("#cta", {opacity: 0, y: 30}, {opacity: 1, y: 0, duration: .62, ease: "power3.out"}, 18.42)
       .fromTo("#supporting", {opacity: 0, y: 18}, {opacity: 1, y: 0, duration: .55, ease: "power2.out"}, 18.78);
 
