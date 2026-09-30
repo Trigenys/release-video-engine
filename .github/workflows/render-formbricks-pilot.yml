@@ -1,0 +1,54 @@
+name: Render Formbricks pilot artifact
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "video/GenericReleaseVideo.tsx"
+      - "video/data/formbricks.ts"
+      - "video/Root.tsx"
+      - "video/compositions.ts"
+      - "scripts/render-formbricks.mjs"
+      - "package.json"
+      - "tsconfig.video.json"
+      - ".github/workflows/render-formbricks-pilot.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+
+      - name: Typecheck video compositions
+        run: npm run typecheck:video
+
+      - name: Render Formbricks 6.0.1 in all formats
+        run: npm run render:formbricks
+
+      - name: Verify expected outputs
+        run: |
+          test -s out/formbricks-6.0.1-vertical.mp4
+          test -s out/formbricks-6.0.1-square.mp4
+          test -s out/formbricks-6.0.1-landscape.mp4
+
+      - name: Upload pilot MP4s
+        uses: actions/upload-artifact@v4
+        with:
+          name: formbricks-6.0.1-pilot-videos
+          path: out/formbricks-6.0.1-*.mp4
+          if-no-files-found: error
+          retention-days: 14
