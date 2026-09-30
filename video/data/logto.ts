@@ -29,7 +29,7 @@ export const logtoRelease = defineReleaseVideoSpec<Record<string, unknown>>({
       muted: "#b8b2c8",
       primary: "#5d34f2",
       accent: "#bd31ff",
-      secondary: "#7958ff"
+      secondary: "#9b80f9"
     },
     typography: {
       family: "Inter",
