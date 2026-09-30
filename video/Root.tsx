@@ -28,7 +28,7 @@ export function RemotionRoot() {
       ))}
 
       {formbricksCompositions.map((composition) => (
-        <Composition<GenericReleaseVideoProps>
+        <Composition<any, GenericReleaseVideoProps>
           key={composition.id}
           id={composition.id}
           component={GenericReleaseVideo}
