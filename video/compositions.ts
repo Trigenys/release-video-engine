@@ -35,3 +35,9 @@ export const agenFetchCompositions = [
   composition("AgenFetchRelease-v031-square", "square", "square"),
   composition("AgenFetchRelease-v031-landscape", "landscape", "landscape")
 ] as const;
+
+export const formbricksCompositions = [
+  composition("FormbricksRelease-601", "vertical", "vertical"),
+  composition("FormbricksRelease-601-square", "square", "square"),
+  composition("FormbricksRelease-601-landscape", "landscape", "landscape")
+] as const;
