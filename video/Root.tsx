@@ -1,6 +1,6 @@
 import {Composition, Still} from "remotion";
 import {AgenFetchReleaseVideo} from "./AgenFetchReleaseVideo";
-import {GenericReleaseVideo} from "./GenericReleaseVideo";
+import {GenericReleaseVideo, type GenericReleaseVideoProps} from "./GenericReleaseVideo";
 import {
   agenFetchCompositions,
   formbricksCompositions,
@@ -28,7 +28,7 @@ export function RemotionRoot() {
       ))}
 
       {formbricksCompositions.map((composition) => (
-        <Composition
+        <Composition<GenericReleaseVideoProps>
           key={composition.id}
           id={composition.id}
           component={GenericReleaseVideo}
