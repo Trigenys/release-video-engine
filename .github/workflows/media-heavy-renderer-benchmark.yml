@@ -65,6 +65,9 @@ jobs:
       - name: Render HyperFrames media-heavy outputs
         run: npm run render:media-heavy:hyperframes
 
+      - name: Summarize renderer comparison
+        run: node scripts/summarize-media-heavy-benchmark.mjs
+
       - name: Verify benchmark outputs
         run: |
           test -s out/formbricks-6.0.1-media-heavy-remotion-vertical-en.mp4
@@ -77,6 +80,8 @@ jobs:
           test -s out/formbricks-6.0.1-media-heavy-hyperframes-landscape-fr.mp4
           test -s out/formbricks-6.0.1-media-heavy-remotion-benchmark.json
           test -s out/formbricks-6.0.1-media-heavy-hyperframes-benchmark.json
+          test -s out/media-heavy-renderer-comparison.json
+          test -s out/media-heavy-renderer-comparison.md
 
       - name: Upload parity benchmark
         uses: actions/upload-artifact@v4
@@ -85,5 +90,7 @@ jobs:
           path: |
             out/formbricks-6.0.1-media-heavy-*.mp4
             out/formbricks-6.0.1-media-heavy-*-benchmark.json
+            out/media-heavy-renderer-comparison.json
+            out/media-heavy-renderer-comparison.md
           if-no-files-found: error
           retention-days: 14
