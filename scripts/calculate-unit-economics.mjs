@@ -47,7 +47,7 @@ ${rows}
 ## Model notes
 
 - Compute uses the configured paid GitHub Actions Linux 2-core rate and rounds each release job to whole billed minutes.
-- Retry overhead uses expected attempts = `1 / (1 - retryProbability)`.
+- Retry overhead uses expected attempts = 1 / (1 - retryProbability).
 - R2 free-tier allowances are excluded, so the report represents marginal cost rather than today's subsidized bill.
 - R2 egress is modeled from the configured rate (currently zero).
 - External API cost is zero in the current deterministic pipeline but is represented explicitly in the model.
