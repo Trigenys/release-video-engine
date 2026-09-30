@@ -1,0 +1,71 @@
+name: HyperFrames Formbricks benchmark
+
+on:
+  pull_request:
+    branches:
+      - main
+      - pilot/formbricks-6-0-1-artifact
+    paths:
+      - "hyperframes/**"
+      - "scripts/build-hyperframes-formbricks.mts"
+      - "scripts/render-hyperframes-formbricks.mjs"
+      - "video/contracts/releaseVideo.ts"
+      - "video/data/formbricks.ts"
+      - "package.json"
+      - ".github/workflows/hyperframes-formbricks-benchmark.yml"
+      - "docs/hyperframes-renderer-spike.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-hyperframes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version
+
+      - name: Install project dependencies
+        run: npm install --ignore-scripts
+
+      - name: Ensure HyperFrames browser
+        run: npx --yes hyperframes@0.8.62 browser ensure
+
+      - name: Generate HyperFrames compositions from ReleaseVideoSpec
+        run: npm run build:hyperframes:formbricks
+
+      - name: Check HyperFrames compositions
+        run: npm run check:hyperframes:formbricks
+
+      - name: Render benchmark outputs
+        run: npm run render:hyperframes:formbricks
+
+      - name: Verify expected outputs
+        run: |
+          test -s out/formbricks-6.0.1-hyperframes-vertical.mp4
+          test -s out/formbricks-6.0.1-hyperframes-square.mp4
+          test -s out/formbricks-6.0.1-hyperframes-landscape.mp4
+          test -s out/formbricks-6.0.1-hyperframes-benchmark.json
+
+      - name: Upload HyperFrames benchmark
+        uses: actions/upload-artifact@v4
+        with:
+          name: formbricks-6.0.1-hyperframes-benchmark
+          path: |
+            out/formbricks-6.0.1-hyperframes-*.mp4
+            out/formbricks-6.0.1-hyperframes-benchmark.json
+          if-no-files-found: error
+          retention-days: 14
