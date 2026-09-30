@@ -165,10 +165,11 @@ function buildComposition(format: ReleaseVideoFormat, locale: BenchmarkLocale, l
     }
     .meta {
       position: absolute;
-      left: ${Math.round(safe * 1.35)}px;
-      bottom: ${Math.round(safe * 1.35)}px;
+      top: ${Math.round(safe * 1.35)}px;
+      right: ${Math.round(safe * 1.35)}px;
       color: ${spec.brand.palette.muted};
-      font-size: 19px;
+      font-size: 16px;
+      text-align: right;
     }
     .media-shot {
       width: 100%;
@@ -238,7 +239,7 @@ function buildComposition(format: ReleaseVideoFormat, locale: BenchmarkLocale, l
     .focal {
       position: absolute;
       left: ${Math.round(safe * 1.15)}px;
-      bottom: ${Math.round(safe * 1.15)}px;
+      top: ${Math.round(safe * 1.15)}px;
       padding: 9px 13px;
       border-radius: 999px;
       background: rgba(7,17,31,.82);
