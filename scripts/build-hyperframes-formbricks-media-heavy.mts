@@ -312,7 +312,7 @@ function buildComposition(format: ReleaseVideoFormat, locale: BenchmarkLocale, l
     data-width="${dimensions.width}"
     data-height="${dimensions.height}"
   >
-    <section id="intro" class="clip scene" data-start="0" data-duration="6" data-track-index="1">
+    <section id="intro" class="clip scene" data-start="0" data-duration="5" data-track-index="1">
       <div id="intro-pill" class="pill">${escapeHtml(copy.eyebrow)}</div>
       <div id="intro-product" class="product">${escapeHtml(spec.product.name)} · ${escapeHtml(spec.product.version)}</div>
       <h1 id="intro-title">${escapeHtml(copy.headline)}</h1>
@@ -330,7 +330,7 @@ function buildComposition(format: ReleaseVideoFormat, locale: BenchmarkLocale, l
       data-track-index="0"
     />
 
-    <div class="clip media-overlay" data-start="5" data-duration="13" data-track-index="1"></div>
+    <div id="media-overlay" class="clip media-overlay" data-start="5" data-duration="13" data-track-index="1"></div>
 
     <section id="changes" class="clip changes" data-start="5" data-duration="13" data-track-index="2">
       <div id="changes-panel" class="changes-panel">
@@ -370,7 +370,7 @@ function buildComposition(format: ReleaseVideoFormat, locale: BenchmarkLocale, l
       .fromTo("#intro-product", {opacity: 0, y: 24}, {opacity: 1, y: 0, duration: .55, ease: "power3.out"}, .28)
       .fromTo("#intro-title", {opacity: 0, y: 50}, {opacity: 1, y: 0, duration: .75, ease: "power3.out"}, .48)
       .fromTo("#intro-summary", {opacity: 0, y: 26}, {opacity: 1, y: 0, duration: .65, ease: "power2.out"}, .85)
-      .to("#intro", {opacity: 0, y: -20, duration: .45, ease: "power2.in"}, 5.45)
+      .to("#intro", {opacity: 0, y: -20, duration: .45, ease: "power2.in"}, 4.45)
       .fromTo("#product-shot", {scale: 1.05, opacity: 0}, {scale: 1, opacity: 1, duration: .8, ease: "power2.out"}, 5.05)
       .fromTo("#changes-panel", {opacity: 0, x: 48}, {opacity: 1, x: 0, duration: .7, ease: "power3.out"}, 5.45);
 
