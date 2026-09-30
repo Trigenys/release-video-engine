@@ -24,7 +24,13 @@
     "build:hyperframes:formbricks": "tsx scripts/build-hyperframes-formbricks.mts",
     "check:hyperframes:formbricks": "npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1/vertical && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1/square && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1/landscape",
     "render:hyperframes:formbricks": "node scripts/render-hyperframes-formbricks.mjs",
-    "benchmark:hyperframes:formbricks": "npm run build:hyperframes:formbricks && npm run check:hyperframes:formbricks && npm run render:hyperframes:formbricks"
+    "benchmark:hyperframes:formbricks": "npm run build:hyperframes:formbricks && npm run check:hyperframes:formbricks && npm run render:hyperframes:formbricks",
+    "prepare:media-benchmark": "node scripts/prepare-media-heavy-benchmark.mjs",
+    "build:hyperframes:media-heavy": "tsx scripts/build-hyperframes-formbricks-media-heavy.mts",
+    "check:hyperframes:media-heavy": "npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/vertical-en && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/square-en && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/landscape-en && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/landscape-fr",
+    "render:media-heavy:remotion": "node scripts/render-media-heavy-remotion.mjs",
+    "render:media-heavy:hyperframes": "node scripts/render-media-heavy-hyperframes.mjs",
+    "benchmark:media-heavy": "npm run prepare:media-benchmark && npm run build:hyperframes:media-heavy && npm run check:hyperframes:media-heavy && npm run render:media-heavy:remotion && npm run render:media-heavy:hyperframes"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
@@ -32,7 +38,10 @@
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.13",
     "remotion": "4.0.528",
-    "zod": "^4.0.0"
+    "zod": "^4.0.0",
+    "@fontsource/inter": "5.3.0",
+    "@remotion/media": "4.0.528",
+    "gsap": "3.14.2"
   },
   "devDependencies": {
     "@types/react": "^19.1.13",

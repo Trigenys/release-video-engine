@@ -1,0 +1,96 @@
+name: Media-heavy renderer parity benchmark
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "video/MediaHeavyReleaseVideo.tsx"
+      - "video/data/formbricksMediaHeavy.ts"
+      - "video/Root.tsx"
+      - "scripts/prepare-media-heavy-benchmark.mjs"
+      - "scripts/build-hyperframes-formbricks-media-heavy.mts"
+      - "scripts/render-media-heavy-remotion.mjs"
+      - "scripts/render-media-heavy-hyperframes.mjs"
+      - "scripts/lib/run-measured.mjs"
+      - "package.json"
+      - ".github/workflows/media-heavy-renderer-benchmark.yml"
+      - "docs/media-heavy-renderer-benchmark.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install runtime tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg time
+          ffmpeg -version
+          /usr/bin/time --version
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+
+      - name: Prepare deterministic benchmark assets
+        run: npm run prepare:media-benchmark
+
+      - name: Typecheck video compositions
+        run: npm run typecheck:video
+
+      - name: Ensure HyperFrames browser
+        run: npx --yes hyperframes@0.8.62 browser ensure
+
+      - name: Generate HyperFrames compositions
+        run: npm run build:hyperframes:media-heavy
+
+      - name: Check HyperFrames compositions
+        run: npm run check:hyperframes:media-heavy
+
+      - name: Render Remotion media-heavy outputs
+        run: npm run render:media-heavy:remotion
+
+      - name: Render HyperFrames media-heavy outputs
+        run: npm run render:media-heavy:hyperframes
+
+      - name: Summarize renderer comparison
+        run: node scripts/summarize-media-heavy-benchmark.mjs
+
+      - name: Verify benchmark outputs
+        run: |
+          test -s out/formbricks-6.0.1-media-heavy-remotion-vertical-en.mp4
+          test -s out/formbricks-6.0.1-media-heavy-remotion-square-en.mp4
+          test -s out/formbricks-6.0.1-media-heavy-remotion-landscape-en.mp4
+          test -s out/formbricks-6.0.1-media-heavy-remotion-landscape-fr.mp4
+          test -s out/formbricks-6.0.1-media-heavy-hyperframes-vertical-en.mp4
+          test -s out/formbricks-6.0.1-media-heavy-hyperframes-square-en.mp4
+          test -s out/formbricks-6.0.1-media-heavy-hyperframes-landscape-en.mp4
+          test -s out/formbricks-6.0.1-media-heavy-hyperframes-landscape-fr.mp4
+          test -s out/formbricks-6.0.1-media-heavy-remotion-benchmark.json
+          test -s out/formbricks-6.0.1-media-heavy-hyperframes-benchmark.json
+          test -s out/media-heavy-renderer-comparison.json
+          test -s out/media-heavy-renderer-comparison.md
+
+      - name: Upload parity benchmark
+        uses: actions/upload-artifact@v4
+        with:
+          name: formbricks-6.0.1-media-heavy-renderer-benchmark
+          path: |
+            out/formbricks-6.0.1-media-heavy-*.mp4
+            out/formbricks-6.0.1-media-heavy-*-benchmark.json
+            out/media-heavy-renderer-comparison.json
+            out/media-heavy-renderer-comparison.md
+          if-no-files-found: error
+          retention-days: 14
