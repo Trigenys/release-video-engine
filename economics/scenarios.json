@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "defaults": {
+    "retryProbability": 0.05,
+    "retentionDays": 30,
+    "readsPerOutput": 20,
+    "externalApiUsdPerOutput": 0,
+    "setupSecondsByRenderer": {
+      "remotion": 45,
+      "hyperframes": 55
+    },
+    "setupAssumption": "Approximate production setup allowance derived from the green benchmark job's common checkout/runtime/dependency steps. HyperFrames gets an extra browser/bootstrap allowance. HyperFrames lint/check QA time is intentionally excluded from per-customer production rendering."
+  },
+  "scenarios": [
+    {
+      "id": "single-vertical-en",
+      "description": "One 9:16 English output.",
+      "outputs": [
+        {
+          "format": "vertical",
+          "locale": "en"
+        }
+      ],
+      "releasesPerCustomerMonth": 1
+    },
+    {
+      "id": "single-square-en",
+      "description": "One 1:1 English output.",
+      "outputs": [
+        {
+          "format": "square",
+          "locale": "en"
+        }
+      ],
+      "releasesPerCustomerMonth": 1
+    },
+    {
+      "id": "single-landscape-en",
+      "description": "One 16:9 English output.",
+      "outputs": [
+        {
+          "format": "landscape",
+          "locale": "en"
+        }
+      ],
+      "releasesPerCustomerMonth": 1
+    },
+    {
+      "id": "launch-pack-3-formats-en",
+      "description": "One release rendered to 9:16, 1:1 and 16:9 English outputs in one job.",
+      "outputs": [
+        {
+          "format": "vertical",
+          "locale": "en"
+        },
+        {
+          "format": "square",
+          "locale": "en"
+        },
+        {
+          "format": "landscape",
+          "locale": "en"
+        }
+      ],
+      "releasesPerCustomerMonth": 1
+    },
+    {
+      "id": "localized-launch-pack",
+      "description": "Three English formats plus one French 16:9 output in one release job.",
+      "outputs": [
+        {
+          "format": "vertical",
+          "locale": "en"
+        },
+        {
+          "format": "square",
+          "locale": "en"
+        },
+        {
+          "format": "landscape",
+          "locale": "en"
+        },
+        {
+          "format": "landscape",
+          "locale": "fr"
+        }
+      ],
+      "releasesPerCustomerMonth": 1
+    },
+    {
+      "id": "monthly-automation-4-releases",
+      "description": "Four releases per month, each rendered to the three English social formats.",
+      "outputs": [
+        {
+          "format": "vertical",
+          "locale": "en"
+        },
+        {
+          "format": "square",
+          "locale": "en"
+        },
+        {
+          "format": "landscape",
+          "locale": "en"
+        }
+      ],
+      "releasesPerCustomerMonth": 4
+    }
+  ]
+}

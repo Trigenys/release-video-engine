@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-30",
+  "currency": "USD",
+  "computeProfiles": {
+    "githubActionsLinux2CorePrivate": {
+      "billingModel": "rounded-job-minute",
+      "usdPerMinute": 0.006,
+      "roundingSeconds": 60,
+      "source": "https://docs.github.com/en/billing/reference/actions-runner-pricing",
+      "note": "Uses the paid standard Linux 2-core rate as a conservative marginal-cost reference. Standard public-repository Actions usage can be free, but that subsidy is excluded from self-serve economics."
+    }
+  },
+  "storageProfiles": {
+    "cloudflareR2Standard": {
+      "usdPerGbMonth": 0.015,
+      "classAUsdPerMillion": 4.5,
+      "classBUsdPerMillion": 0.36,
+      "egressUsdPerGb": 0,
+      "source": "https://developers.cloudflare.com/r2/pricing/",
+      "note": "Free tier is deliberately excluded from marginal-cost calculations."
+    }
+  },
+  "targetGrossMargins": [
+    0.8,
+    0.9
+  ]
+}

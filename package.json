@@ -30,7 +30,9 @@
     "check:hyperframes:media-heavy": "npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/vertical-en && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/square-en && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/landscape-en && npx --yes hyperframes@0.8.62 check hyperframes/formbricks-6.0.1-media-heavy/landscape-fr",
     "render:media-heavy:remotion": "node scripts/render-media-heavy-remotion.mjs",
     "render:media-heavy:hyperframes": "node scripts/render-media-heavy-hyperframes.mjs",
-    "benchmark:media-heavy": "npm run prepare:media-benchmark && npm run build:hyperframes:media-heavy && npm run check:hyperframes:media-heavy && npm run render:media-heavy:remotion && npm run render:media-heavy:hyperframes"
+    "benchmark:media-heavy": "npm run prepare:media-benchmark && npm run build:hyperframes:media-heavy && npm run check:hyperframes:media-heavy && npm run render:media-heavy:remotion && npm run render:media-heavy:hyperframes",
+    "economics:report": "node scripts/calculate-unit-economics.mjs",
+    "economics:validate": "node scripts/validate-unit-economics.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",

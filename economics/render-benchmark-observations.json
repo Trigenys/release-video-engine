@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "benchmark": "Formbricks 6.0.1 media-heavy renderer parity benchmark",
+    "workflowRunId": 36772390469,
+    "artifactId": 11123829071,
+    "capturedAt": "2026-09-30",
+    "videoDurationSeconds": 24,
+    "note": "Measured render-process observations only; scenario setup overhead is modeled separately."
+  },
+  "observations": [
+    {
+      "renderer": "remotion",
+      "format": "vertical",
+      "locale": "en",
+      "durationMs": 59001,
+      "bytes": 2568029,
+      "cpuUserSeconds": 47.73,
+      "cpuSystemSeconds": 2.43,
+      "peakRssKb": 1261496
+    },
+    {
+      "renderer": "remotion",
+      "format": "square",
+      "locale": "en",
+      "durationMs": 35824,
+      "bytes": 2272421,
+      "cpuUserSeconds": 22.59,
+      "cpuSystemSeconds": 1.39,
+      "peakRssKb": 690452
+    },
+    {
+      "renderer": "remotion",
+      "format": "landscape",
+      "locale": "en",
+      "durationMs": 48455,
+      "bytes": 2483492,
+      "cpuUserSeconds": 31.38,
+      "cpuSystemSeconds": 1.65,
+      "peakRssKb": 721784
+    },
+    {
+      "renderer": "remotion",
+      "format": "landscape",
+      "locale": "fr",
+      "durationMs": 49449,
+      "bytes": 2752601,
+      "cpuUserSeconds": 34.35,
+      "cpuSystemSeconds": 1.59,
+      "peakRssKb": 711876
+    },
+    {
+      "renderer": "hyperframes",
+      "format": "vertical",
+      "locale": "en",
+      "durationMs": 39099,
+      "bytes": 3100360,
+      "cpuUserSeconds": 68.56,
+      "cpuSystemSeconds": 9.52,
+      "peakRssKb": 528896
+    },
+    {
+      "renderer": "hyperframes",
+      "format": "square",
+      "locale": "en",
+      "durationMs": 29947,
+      "bytes": 2542766,
+      "cpuUserSeconds": 47.71,
+      "cpuSystemSeconds": 7.71,
+      "peakRssKb": 354772
+    },
+    {
+      "renderer": "hyperframes",
+      "format": "landscape",
+      "locale": "en",
+      "durationMs": 40241,
+      "bytes": 3632391,
+      "cpuUserSeconds": 70.42,
+      "cpuSystemSeconds": 9.77,
+      "peakRssKb": 519928
+    },
+    {
+      "renderer": "hyperframes",
+      "format": "landscape",
+      "locale": "fr",
+      "durationMs": 41189,
+      "bytes": 3757723,
+      "cpuUserSeconds": 71.6,
+      "cpuSystemSeconds": 10.03,
+      "peakRssKb": 518740
+    }
+  ]
+}
