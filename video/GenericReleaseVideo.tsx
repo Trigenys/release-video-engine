@@ -13,7 +13,7 @@ import {
   type ReleaseVideoSpec
 } from "./contracts/releaseVideo";
 
-export interface GenericReleaseVideoProps {
+export interface GenericReleaseVideoProps extends Record<string, unknown> {
   spec: ReleaseVideoSpec<Record<string, unknown>>;
   format: ReleaseVideoFormat;
 }
