@@ -31,8 +31,11 @@ jobs:
         with:
           node-version: 24
 
-      - name: Verify FFmpeg
-        run: ffmpeg -version
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version
 
       - name: Install project dependencies
         run: npm install --ignore-scripts
