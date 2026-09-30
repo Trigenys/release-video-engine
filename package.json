@@ -19,7 +19,8 @@
     "validate:templates": "tsx scripts/validate-template-registry.mts",
     "qa:landing": "playwright test",
     "qa:budget": "node scripts/check-web-budget.mjs",
-    "qa": "npm run build && npm run qa:budget && npm run qa:landing"
+    "qa": "npm run build && npm run qa:budget && npm run qa:landing",
+    "render:formbricks": "node scripts/render-formbricks.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
