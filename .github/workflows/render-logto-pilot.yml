@@ -29,10 +29,15 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install FFmpeg
+      - name: Ensure FFmpeg
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          if command -v ffmpeg >/dev/null 2>&1; then
+            ffmpeg -version
+            exit 0
+          fi
+          timeout 120s sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update
+          timeout 120s sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y ffmpeg
+          ffmpeg -version
 
       - name: Install project dependencies
         run: npm install --ignore-scripts
