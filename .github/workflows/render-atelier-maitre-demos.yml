@@ -1,0 +1,55 @@
+name: Render Atelier Maître sales demos
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "video/ProductDemoVideo.tsx"
+      - "video/contracts/productDemo.ts"
+      - "video/data/atelierMaitre.ts"
+      - "video/Root.tsx"
+      - "scripts/render-atelier-maitre.mjs"
+      - "scripts/validate-atelier-maitre-demos.mts"
+      - ".github/workflows/render-atelier-maitre-demos.yml"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check video code
+        run: npm run typecheck:video
+
+      - name: Validate Atelier Maître demo specs
+        run: npx tsx scripts/validate-atelier-maitre-demos.mts
+
+      - name: Render both sales demos
+        run: node scripts/render-atelier-maitre.mjs
+
+      - name: Upload demos
+        uses: actions/upload-artifact@v4
+        with:
+          name: atelier-maitre-sales-demos
+          path: |
+            out/atelier-maitre/*.mp4
+            out/atelier-maitre/render-summary.json
+          if-no-files-found: error
+          retention-days: 14
