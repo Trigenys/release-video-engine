@@ -12,7 +12,7 @@ For each qualified prospect, Release Video Engine should turn one recent public 
 2. **Monthly Release Automation** — recurring release-to-video delivery for teams that ship frequently.
 3. **Brand Template Setup** — one-time setup for a reusable branded video system.
 
-Pricing is intentionally not hard-coded here. The pilot should capture buying language, objections and willingness to pay before locking pricing.
+Pilot price anchors are defined in `docs/validation-offers-and-outreach.md`. They are validation instruments, not final product pricing.
 
 ## Pilot success criteria
 
@@ -146,7 +146,9 @@ Avoid running two disconnected research motions against the same prospects.
 - Pilot tracker: created.
 - 20 prospects: qualified by public recent release activity.
 - Wave 1: defined.
-- Personalized artifacts: not yet produced.
+- Personalized artifacts: Formbricks 6.0.1 produced in Remotion and HyperFrames; media-heavy parity reviewed.
+- Price anchors: defined (A: $49 launch / $99 monthly; B: $99 launch / $199 monthly).
+- Formbricks outreach copy: prepared, not sent.
 - Outreach sent: 0 / 20.
 - Pricing conversations: 0 / 3 minimum.
 - Paid-pilot / procurement: 0 / 1 minimum.
