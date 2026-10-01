@@ -1,22 +1,22 @@
 import type { AppFactoryManifest } from '../types'
 
 export function FinalCta({
-  config,
-  language
+  config
 }: {
   config: AppFactoryManifest['content']['finalCta']
   language: AppFactoryManifest['project']['language']
 }) {
   return (
-    <section className="cta-shell" id="final-cta">
-      <div>
-        <p className="eyebrow">{language === 'fr' ? 'À vous' : 'Ready'}</p>
-        <h2>{config.title}</h2>
-        {config.subtitle && <p>{config.subtitle}</p>}
+    <section className="stitch-final-wrap" id="final-cta">
+      <div className="stitch-final">
+        <p className="final-pill">🚀 NEXT RELEASE READY</p>
+        <h2>The next release is already content.<br/><span>Make it look like it.</span></h2>
+        <p>{config.subtitle}</p>
+        <div className="final-actions">
+          <a className="button button-primary stitch-primary-xl" href="#contact">Try it on my release 🚀</a>
+          <a className="button button-secondary stitch-secondary-xl" href="#proof">Review AgenFetch Proof ✨</a>
+        </div>
       </div>
-      <a className="button button-primary" href={config.href}>
-        {config.label}
-      </a>
     </section>
   )
 }
