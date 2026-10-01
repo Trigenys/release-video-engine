@@ -14,7 +14,7 @@ import {
   type ProductDemoSpec
 } from "./contracts/productDemo";
 
-export interface ProductDemoVideoProps {
+export interface ProductDemoVideoProps extends Record<string, unknown> {
   spec: ProductDemoSpec;
 }
 
