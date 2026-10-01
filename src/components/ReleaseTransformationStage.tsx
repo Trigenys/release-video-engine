@@ -1,5 +1,3 @@
-import type { CSSProperties } from 'react'
-
 type ReleaseTransformationStageProps = {
   repository: string
   version: string
@@ -7,12 +5,6 @@ type ReleaseTransformationStageProps = {
   product: string
   accentLabel: string
 }
-
-const formats = [
-  { id: 'vertical', ratio: '9:16', label: 'Reels · Shorts' },
-  { id: 'square', ratio: '1:1', label: 'LinkedIn · X' },
-  { id: 'landscape', ratio: '16:9', label: 'Launch · Web' }
-] as const
 
 export function ReleaseTransformationStage({
   repository,
@@ -22,86 +14,56 @@ export function ReleaseTransformationStage({
   accentLabel
 }: ReleaseTransformationStageProps) {
   return (
-    <aside className="release-stage" aria-label="Release transformed into three branded video formats">
-      <span className="sr-only">
-        A GitHub release is transformed through a reusable brand system into vertical,
-        square and landscape launch videos.
-      </span>
-
-      <div className="release-stage-glow release-stage-glow-a" aria-hidden="true" />
-      <div className="release-stage-glow release-stage-glow-b" aria-hidden="true" />
-
-      <div className="release-source-card" aria-hidden="true">
-        <div className="source-card-topline">
-          <span className="source-dot" />
-          <span>GitHub release</span>
-          <span className="source-status">live</span>
-        </div>
-        <strong>{repository}</strong>
-        <div className="source-release-row">
-          <span className="source-tag">{version}</span>
-          <span>{releaseTitle}</span>
-        </div>
-        <div className="source-lines">
-          <span />
-          <span />
-          <span />
-        </div>
+    <aside className="stitch-player-wrap" aria-label="AgenFetch release video preview">
+      <div className="floating-proof floating-proof-top">
+        <span>🔥</span>
+        <div><strong>Viral Reach Ready</strong><small>Reels • Shorts • TikTok</small></div>
+      </div>
+      <div className="floating-proof floating-proof-bottom">
+        <span>⚡</span>
+        <div><strong>Deterministic Code</strong><small>{product} {version} Proof</small></div>
       </div>
 
-      <div className="brand-engine-card" aria-hidden="true">
-        <div className="brand-engine-icon">R</div>
-        <div>
-          <span>Brand system</span>
-          <strong>One release. One visual language.</strong>
+      <div className="stitch-player">
+        <div className="player-windowbar">
+          <div className="window-dots"><i /><i /><i /></div>
+          <code>agenfetch-v0.3.1-preview.mp4</code>
+          <span>9:16 MASTER</span>
         </div>
-        <div className="brand-swatches">
-          <i />
-          <i />
-          <i />
-        </div>
-      </div>
 
-      <div className="release-output-stack" aria-hidden="true">
-        {formats.map((format, index) => (
-          <article
-            className={`release-output release-output-${format.id}`}
-            key={format.id}
-            style={{ '--output-index': index } as CSSProperties}
-          >
-            <div className="output-frame">
-              <div className="output-noise" />
-              <div className="output-topline">
-                <span>{product}</span>
-                <span>{format.ratio}</span>
-              </div>
-              <div className="output-kicker">Release {version}</div>
-              <strong>{accentLabel}</strong>
-              <div className="output-motion-bars">
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="output-footer">
-                <span>brand-safe</span>
-                <i />
-                <span>ready to publish</span>
-              </div>
+        <div className="player-canvas">
+          <div className="player-grid" />
+          <div className="player-topline">
+            <div><b>AF</b><span>{product}</span></div>
+            <em>RELEASE NOTES ✨</em>
+          </div>
+
+          <div className="player-center">
+            <span className="release-source-card">● TAG {version} SHIP LOG</span>
+            <h3>{releaseTitle}<br/><b>{accentLabel}</b></h3>
+            <p>Seven subtitle languages, three subtitle catalogues and a local-first desktop workflow.</p>
+            <div className="player-diff">
+              <div><span>// {repository}</span><b>✦ {version}</b></div>
+              <strong>+ multilingual subtitle catalogue</strong>
+              <code>&gt; public release data → deterministic video artifact</code>
             </div>
-            <div className="output-label">
-              <b>{format.ratio}</b>
-              <span>{format.label}</span>
-            </div>
-          </article>
-        ))}
-      </div>
+          </div>
 
-      <div className="release-stage-caption" aria-hidden="true">
-        <span>release.json</span>
-        <i />
-        <span>brand tokens</span>
-        <i />
-        <span>3 renders</span>
+          <div className="player-hud">
+            <div className="hud-row">
+              <div className="wave"><i /><i /><i /><i /></div>
+              <strong>PREVIEW ENGINE</strong>
+              <span>00:14 / 00:24</span>
+            </div>
+            <div className="hud-progress"><i /></div>
+            <div className="hud-meta"><b>FPS: 60 · H.264</b><b>AUDIO: ORIGINAL BED 🎵</b></div>
+          </div>
+        </div>
+
+        <div className="player-footer">
+          <span>✨ Live Artifact: AgenFetch v0.3.1</span>
+          <a href="#proof">View all 3 formats →</a>
+        </div>
       </div>
     </aside>
   )
