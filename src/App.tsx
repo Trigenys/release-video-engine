@@ -6,37 +6,7 @@ import { ReleaseShowcaseGallery } from './components/ReleaseShowcaseGallery'
 import { CreativeTemplateExplorer } from './components/CreativeTemplateExplorer'
 import { SiteFooter } from './components/SiteFooter'
 import { MotionReveal } from './motion/MotionReveal'
-import {
-  CardSection,
-  FaqSection,
-  ProcessSection,
-  TrustSection
-} from './sections/DynamicSections'
-import type { SectionKind } from './types'
-
-function renderSection(section: SectionKind) {
-  switch (section) {
-    case 'hero':
-      return <Hero manifest={manifest} />
-    case 'trust':
-      return <TrustSection config={manifest.content.trust} />
-    case 'services':
-      return <CardSection config={manifest.content.services} kind="services" />
-    case 'features':
-      return <CardSection config={manifest.content.features} kind="features" />
-    case 'process':
-      return <ProcessSection config={manifest.content.process} />
-    case 'faq':
-      return <FaqSection config={manifest.content.faq} />
-    case 'contact':
-      return <EarlyAccessSection />
-    case 'final-cta':
-      return <FinalCta config={manifest.content.finalCta} language={manifest.project.language} />
-    case 'testimonials':
-    case 'pricing':
-      return null
-  }
-}
+import { CardSection, FaqSection, ProcessSection } from './sections/DynamicSections'
 
 export default function App() {
   const className = [
@@ -50,37 +20,36 @@ export default function App() {
 
   return (
     <main className={className}>
-      {manifest.sections.map((section, index) => {
-        const content = (
-          <>
-            {renderSection(section)}
-            {section === 'trust' && (
-              <>
-                <ReleaseShowcaseGallery />
-                <CreativeTemplateExplorer />
-              </>
-            )}
-          </>
-        )
+      <Hero manifest={manifest} />
 
-        if (section === 'hero') {
-          return (
-            <div className={'section-slot section-slot-' + section} key={section}>
-              {content}
-            </div>
-          )
-        }
+      <MotionReveal className="section-slot">
+        <ReleaseShowcaseGallery />
+      </MotionReveal>
 
-        return (
-          <MotionReveal
-            className={'section-slot section-slot-' + section}
-            delayMs={Math.min(index * 24, 96)}
-            key={section}
-          >
-            {content}
-          </MotionReveal>
-        )
-      })}
+      <MotionReveal className="section-slot" delayMs={24}>
+        <ProcessSection config={manifest.content.process} />
+      </MotionReveal>
+
+      <MotionReveal className="section-slot" delayMs={48}>
+        <CreativeTemplateExplorer />
+      </MotionReveal>
+
+      <MotionReveal className="section-slot" delayMs={72}>
+        <CardSection config={manifest.content.features} kind="features" />
+      </MotionReveal>
+
+      <MotionReveal className="section-slot" delayMs={72}>
+        <EarlyAccessSection />
+      </MotionReveal>
+
+      <MotionReveal className="section-slot" delayMs={72}>
+        <FaqSection config={manifest.content.faq} />
+      </MotionReveal>
+
+      <MotionReveal className="section-slot" delayMs={72}>
+        <FinalCta config={manifest.content.finalCta} language={manifest.project.language} />
+      </MotionReveal>
+
       <SiteFooter />
     </main>
   )
