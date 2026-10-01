@@ -14,6 +14,9 @@ import {
 import {formbricksRelease} from "./data/formbricks";
 import {releaseShowcases} from "../src/data/releaseShowcases";
 import {ShowcaseReleaseStill} from "./showcase/ShowcaseReleaseStill";
+import {ProductDemoVideo, type ProductDemoVideoProps} from "./ProductDemoVideo";
+import {productDemoDurationInFrames} from "./contracts/productDemo";
+import {atelierMaitreFleetDemo, atelierMaitreGeneralDemo} from "./data/atelierMaitre";
 
 const mediaHeavyCompositions = [
   {id: "FormbricksMediaHeavy-vertical-en", format: "vertical" as const, locale: "en" as const, width: 1080, height: 1920},
@@ -22,9 +25,30 @@ const mediaHeavyCompositions = [
   {id: "FormbricksMediaHeavy-landscape-fr", format: "landscape" as const, locale: "fr" as const, width: 1920, height: 1080}
 ] as const;
 
+const PRODUCT_DEMO_FPS = 30;
+
 export function RemotionRoot() {
   return (
     <>
+      <Composition<any, ProductDemoVideoProps>
+        id="AtelierMaitre-General-FR"
+        component={ProductDemoVideo}
+        durationInFrames={productDemoDurationInFrames(atelierMaitreGeneralDemo, PRODUCT_DEMO_FPS)}
+        fps={PRODUCT_DEMO_FPS}
+        width={1920}
+        height={1080}
+        defaultProps={{spec: atelierMaitreGeneralDemo}}
+      />
+
+      <Composition<any, ProductDemoVideoProps>
+        id="AtelierMaitre-Fleet-FR"
+        component={ProductDemoVideo}
+        durationInFrames={productDemoDurationInFrames(atelierMaitreFleetDemo, PRODUCT_DEMO_FPS)}
+        fps={PRODUCT_DEMO_FPS}
+        width={1920}
+        height={1080}
+        defaultProps={{spec: atelierMaitreFleetDemo}}
+      />
       {agenFetchCompositions.map((composition) => (
         <Composition
           key={composition.id}

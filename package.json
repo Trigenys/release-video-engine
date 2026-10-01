@@ -32,7 +32,9 @@
     "render:media-heavy:hyperframes": "node scripts/render-media-heavy-hyperframes.mjs",
     "benchmark:media-heavy": "npm run prepare:media-benchmark && npm run build:hyperframes:media-heavy && npm run check:hyperframes:media-heavy && npm run render:media-heavy:remotion && npm run render:media-heavy:hyperframes",
     "economics:report": "node scripts/calculate-unit-economics.mjs",
-    "economics:validate": "node scripts/validate-unit-economics.mjs"
+    "economics:validate": "node scripts/validate-unit-economics.mjs",
+    "validate:atelier-maitre-demos": "tsx scripts/validate-atelier-maitre-demos.mts",
+    "render:atelier-maitre": "node scripts/render-atelier-maitre.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
