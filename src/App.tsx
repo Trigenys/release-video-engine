@@ -4,6 +4,7 @@ import { FinalCta } from './sections/FinalCta'
 import { EarlyAccessSection } from './sections/EarlyAccessSection'
 import { ReleaseShowcaseGallery } from './components/ReleaseShowcaseGallery'
 import { CreativeTemplateExplorer } from './components/CreativeTemplateExplorer'
+import { SiteFooter } from './components/SiteFooter'
 import { MotionReveal } from './motion/MotionReveal'
 import {
   CardSection,
@@ -38,10 +39,17 @@ function renderSection(section: SectionKind) {
 }
 
 export default function App() {
+  const className = [
+    'site',
+    'recipe-' + manifest.design.recipe,
+    'palette-' + manifest.brand.palette,
+    'typography-' + manifest.brand.typography,
+    'density-' + manifest.design.density,
+    'motion-' + manifest.motion.level
+  ].join(' ')
+
   return (
-    <main
-      className={`site recipe-${manifest.design.recipe} palette-${manifest.brand.palette} typography-${manifest.brand.typography} density-${manifest.design.density} motion-${manifest.motion.level}`}
-    >
+    <main className={className}>
       {manifest.sections.map((section, index) => {
         const content = (
           <>
@@ -57,7 +65,7 @@ export default function App() {
 
         if (section === 'hero') {
           return (
-            <div className={`section-slot section-slot-${section}`} key={section}>
+            <div className={'section-slot section-slot-' + section} key={section}>
               {content}
             </div>
           )
@@ -65,7 +73,7 @@ export default function App() {
 
         return (
           <MotionReveal
-            className={`section-slot section-slot-${section}`}
+            className={'section-slot section-slot-' + section}
             delayMs={Math.min(index * 24, 96)}
             key={section}
           >
@@ -73,6 +81,7 @@ export default function App() {
           </MotionReveal>
         )
       })}
+      <SiteFooter />
     </main>
   )
 }
