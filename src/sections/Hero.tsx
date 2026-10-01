@@ -1,4 +1,5 @@
 import type { AppFactoryManifest } from '../types'
+import { BrandMark } from '../components/BrandMark'
 import { ReleaseTransformationStage } from '../components/ReleaseTransformationStage'
 import { MotionReveal } from '../motion/MotionReveal'
 
@@ -22,7 +23,10 @@ function industryLabel(
   return labels[industry][language]
 }
 
-function goalLabel(goal: AppFactoryManifest['strategy']['goal'], language: AppFactoryManifest['project']['language']) {
+function goalLabel(
+  goal: AppFactoryManifest['strategy']['goal'],
+  language: AppFactoryManifest['project']['language']
+) {
   const labels = {
     leads: { fr: 'Générer des demandes', en: 'Generate leads' },
     bookings: { fr: 'Prise de rendez-vous', en: 'Book consultations' },
@@ -34,6 +38,26 @@ function goalLabel(goal: AppFactoryManifest['strategy']['goal'], language: AppFa
   return labels[goal][language]
 }
 
+function HeroTitle({ title }: { title: string }) {
+  const accent = 'deserve a launch.'
+  const normalized = title.toLowerCase()
+  const accentIndex = normalized.indexOf(accent)
+
+  if (accentIndex === -1) {
+    return <>{title}</>
+  }
+
+  const before = title.slice(0, accentIndex).trim()
+  const highlighted = title.slice(accentIndex)
+
+  return (
+    <>
+      <span>{before}</span>
+      <span className="hero-title-accent">{highlighted}</span>
+    </>
+  )
+}
+
 export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
   const config = manifest.content.hero
   const { project, strategy, design } = manifest
@@ -42,37 +66,70 @@ export function Hero({ manifest }: { manifest: AppFactoryManifest }) {
     : manifest.content.features.items
 
   return (
-    <section className={`hero-shell hero-${design.recipe}`}>
+    <section className={'hero-shell hero-' + design.recipe} id="top">
       <nav className="nav-shell">
-        <strong>{project.name}</strong>
+        <a className="brand-lockup" href="#top" aria-label={project.name + ' home'}>
+          <BrandMark />
+          <span>
+            <strong>{project.name}</strong>
+            <small>Release → campaign</small>
+          </span>
+        </a>
+
         <div className="nav-links">
           <a href="#proof">Proof</a>
-          <a href="#contact">Early access</a>
+          <a href="#process">How it works</a>
+          <a href="#templates">Templates</a>
+          <a href="#faq">FAQ</a>
+          <a className="button button-primary nav-cta" href="#contact">
+            Try my release
+          </a>
         </div>
       </nav>
 
       <div className="hero-grid">
         <MotionReveal className="hero-copy" origin="left">
+          <div className="hero-signal-row">
+            <p className="hero-signal">
+              <span aria-hidden="true">✦</span>
+              Concierge early-access experiment
+            </p>
+            <span className="hero-version-chip">AgenFetch v0.3.1 proof</span>
+          </div>
+
           {config.eyebrow && <p className="eyebrow">{config.eyebrow}</p>}
-          <h1>{config.title}</h1>
+          <h1>
+            <HeroTitle title={config.title} />
+          </h1>
           <p className="hero-subtitle">{config.subtitle}</p>
+
           <div className="hero-actions">
             <a className="button button-primary" href={config.primaryCta.href}>
               {config.primaryCta.label}
+              <span aria-hidden="true">↗</span>
             </a>
             {config.secondaryCta && (
               <a className="button button-secondary" href={config.secondaryCta.href}>
                 {config.secondaryCta.label}
+                <span aria-hidden="true">◉</span>
               </a>
             )}
           </div>
+
           {design.recipe === 'saas' && (
-            <div className="hero-proofline" aria-label="Product principles">
-              <span>No timeline</span>
-              <i />
-              <span>Brand-safe</span>
-              <i />
-              <span>3 formats</span>
+            <div className="hero-metrics" aria-label="Product proof points">
+              <div>
+                <strong>100%</strong>
+                <span>public release data</span>
+              </div>
+              <div>
+                <strong>3</strong>
+                <span>launch formats</span>
+              </div>
+              <div>
+                <strong>0</strong>
+                <span>timeline edits</span>
+              </div>
             </div>
           )}
         </MotionReveal>
