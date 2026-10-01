@@ -3804,3 +3804,22 @@ body { overflow-x: hidden; }
     animation: none !important;
   }
 }
+
+
+/* QA corrections for the Stitch fidelity pass */
+.stitch-logo-title small,
+.stitch-secondary-xl em,
+.player-windowbar > span,
+.release-source-card {
+  color: #7a1530;
+}
+
+@media (max-width: 620px) {
+  .stitch-hero {
+    overflow: hidden;
+  }
+
+  .hero-blob {
+    display: none;
+  }
+}
