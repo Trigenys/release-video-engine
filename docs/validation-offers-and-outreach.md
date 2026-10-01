@@ -109,6 +109,12 @@ Artifact status:
 
 Assigned price anchor: **Anchor A**.
 
+Recommended public channel:
+
+- email: `hola@formbricks.com`;
+- source: Formbricks public GitHub organization / repository contact information;
+- do not use the security address for commercial outreach.
+
 ### Primary outreach
 
 > Hey Formbricks team — I used your 6.0.1 release notes to prototype what your release could look like as a short branded launch video instead of another changelog post.
