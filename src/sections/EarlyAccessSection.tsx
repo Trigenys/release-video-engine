@@ -94,7 +94,7 @@ export function EarlyAccessSection() {
           {status.kind === "success" ? (
             <div className="stitch-form-success" role="status">
               <span>🎉</span>
-              <h3>Got it! We&apos;re on it.</h3>
+              <h3>Got it. We&apos;re on it.</h3>
               <p>We&apos;ll use a real release from your repository for the next-step demo.</p>
             </div>
           ) : (
