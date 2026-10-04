@@ -8,7 +8,8 @@ const formats = [
     className: 'proof-coral',
     title: 'Multilingual subtitles',
     copy: 'Built for thumb-stopping vertical release storytelling.',
-    image: '/showcases/agenfetch-v031-vertical.svg'
+    poster: '/showcases/agenfetch-v0.3.1-vertical.jpg',
+    video: '/showcases/agenfetch-v0.3.1-vertical.mp4'
   },
   {
     id: 'square',
@@ -19,7 +20,8 @@ const formats = [
     className: 'proof-cobalt',
     title: 'Seven languages. One release.',
     copy: 'Balanced feed hierarchy for muted autoplay and launch posts.',
-    image: '/showcases/agenfetch-v031-vertical.svg'
+    poster: '/showcases/agenfetch-v0.3.1-square.jpg',
+    video: '/showcases/agenfetch-v0.3.1-square.mp4'
   },
   {
     id: 'landscape',
@@ -30,7 +32,8 @@ const formats = [
     className: 'proof-lime',
     title: 'One source, channel-ready output',
     copy: 'Wide-format framing for changelogs, docs and product launches.',
-    image: '/showcases/agenfetch-v031-vertical.svg'
+    poster: '/showcases/agenfetch-v0.3.1-landscape.jpg',
+    video: '/showcases/agenfetch-v0.3.1-landscape.mp4'
   }
 ] as const
 
@@ -64,14 +67,26 @@ export function ReleaseShowcaseGallery() {
                 <em>{format.resolution}</em>
               </div>
               <div className={'showcase-media proof-media proof-media-' + format.id}>
-                <img src={format.image} alt={'AgenFetch v0.3.1 preview in ' + format.ratio} loading="lazy" decoding="async" />
-                <div className="proof-overlay">
-                  <span>AGENFETCH v0.3.1</span>
-                  <h3>{format.title}</h3>
-                  <p>{format.copy}</p>
-                </div>
+                <video
+                  controls
+                  playsInline
+                  preload="none"
+                  poster={format.poster}
+                  aria-label={'Play AgenFetch v0.3.1 release video in ' + format.ratio}
+                  onPlay={(event) => {
+                    const active = event.currentTarget;
+                    active.closest('.proof-format-grid')?.querySelectorAll('video').forEach((video) => {
+                      if (video !== active) video.pause();
+                    });
+                  }}
+                >
+                  <source src={format.video} type="video/mp4" />
+                  Your browser does not support video playback.
+                  <a href={format.video}>Download the {format.ratio} preview</a>.
+                </video>
               </div>
               <div className="proof-format-copy">
+                <h3>{format.title}</h3>
                 <strong>✦ {format.copy}</strong>
                 <p>Same public release payload, adapted to the channel instead of cropped after the fact.</p>
               </div>
