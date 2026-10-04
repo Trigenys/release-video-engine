@@ -209,7 +209,7 @@ test("reduced-motion removes decorative animation", async ({page}) => {
   expect(reveal.transform).toBe("none");
 });
 
-test("showcase media is lazy and does not introduce major CLS", async ({page}) => {
+test("showcase videos defer loading and do not introduce major CLS", async ({page}) => {
   await page.addInitScript(() => {
     (window as Window & {__qaCls?: number}).__qaCls = 0;
 
@@ -231,11 +231,30 @@ test("showcase media is lazy and does not introduce major CLS", async ({page}) =
   await page.goto("/");
   await page.waitForLoadState("networkidle");
 
-  const images = page.locator(".showcase-media img");
-  await expect(images).toHaveCount(3);
+  const videos = page.locator('.showcase-media video');
+  await expect(videos).toHaveCount(3);
+  await expect(page.locator('.proof-overlay')).toHaveCount(0);
 
-  for (let index = 0; index < 3; index += 1) {
-    await expect(images.nth(index)).toHaveAttribute("loading", "lazy");
+  const formats = [
+    {name: 'vertical', width: 1080, height: 1920},
+    {name: 'square', width: 1080, height: 1080},
+    {name: 'landscape', width: 1920, height: 1080}
+  ];
+  for (const [index, format] of formats.entries()) {
+    const video = videos.nth(index);
+    await expect(video).toHaveAttribute('preload', 'none');
+    await expect(video).toHaveAttribute('controls', '');
+    await expect(video).toHaveAttribute('poster', `/showcases/agenfetch-v0.3.1-${format.name}.jpg`);
+    await expect(video.locator('source')).toHaveAttribute('src', `/showcases/agenfetch-v0.3.1-${format.name}.mp4`);
+    const metadata = await video.evaluate(async (element) => {
+      const media = element as HTMLVideoElement;
+      media.muted = true;
+      await media.play();
+      const result = {width: media.videoWidth, height: media.videoHeight, duration: media.duration};
+      media.pause();
+      return result;
+    });
+    expect(metadata).toEqual({width: format.width, height: format.height, duration: 24});
   }
 
   const cls = await page.evaluate(
