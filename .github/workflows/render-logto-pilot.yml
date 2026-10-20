@@ -1,0 +1,78 @@
+name: Render Logto concierge artifact
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "video/data/logto.ts"
+      - "scripts/prepare-logto-pilot.mjs"
+      - "scripts/lib/build-hyperframes-prospect.mts"
+      - "scripts/build-hyperframes-logto.mts"
+      - "scripts/render-logto-pilot.mjs"
+      - ".github/workflows/render-logto-pilot.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Ensure FFmpeg
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1; then
+            ffmpeg -version
+            exit 0
+          fi
+          timeout 120s sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update
+          timeout 120s sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 install -y ffmpeg
+          ffmpeg -version
+
+      - name: Install project dependencies
+        run: npm install --ignore-scripts
+
+      - name: Prepare public Logto assets
+        run: node scripts/prepare-logto-pilot.mjs
+
+      - name: Ensure HyperFrames browser
+        run: npx --yes hyperframes@0.8.62 browser ensure
+
+      - name: Generate Logto compositions
+        run: npx tsx scripts/build-hyperframes-logto.mts
+
+      - name: Check Logto compositions
+        run: |
+          npx --yes hyperframes@0.8.62 check hyperframes/pilot/logto-v1.44.0/vertical
+          npx --yes hyperframes@0.8.62 check hyperframes/pilot/logto-v1.44.0/square
+          npx --yes hyperframes@0.8.62 check hyperframes/pilot/logto-v1.44.0/landscape
+
+      - name: Render Logto release preview
+        run: node scripts/render-logto-pilot.mjs
+
+      - name: Verify outputs
+        run: |
+          test -s out/logto-v1.44.0-hyperframes-vertical.mp4
+          test -s out/logto-v1.44.0-hyperframes-square.mp4
+          test -s out/logto-v1.44.0-hyperframes-landscape.mp4
+          test -s out/logto-v1.44.0-pilot-metrics.json
+
+      - name: Upload pilot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: logto-v1.44.0-tailored-release-preview
+          path: |
+            out/logto-v1.44.0-hyperframes-*.mp4
+            out/logto-v1.44.0-pilot-metrics.json
+          if-no-files-found: error
+          retention-days: 14
