@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "name": "Release Video Engine",
+  "stage": "prototype",
+  "tagline": "A reproducible release-to-video pipeline that transforms validated GitHub release content and product media into branded vertical, square and landscape MP4s.",
+  "problem": "Small software teams ship updates through CI but still repeat manual release communication tasks: selecting highlights, building timelines, preparing screenshots and adapting videos for multiple platform aspect ratios.",
+  "scenario": "A public GitHub release or tag is normalized, paired with approved product branding and screenshots, and rendered through a template registry into 9:16, 1:1 and 16:9 compositions with measurable render outputs.",
+  "differentiation": "Validated release metadata, a format-independent typed composition contract and deterministic Remotion templates preserve editorial control rather than relying on unpredictable text-to-video claims.",
+  "architecture": "Public GitHub release/tag -> validated normalized release payload -> brand and media spec -> Remotion compositions -> reproducible MP4 files for vertical, square and landscape publishing.",
+  "limitations": "A render prototype is not a live scheduling or publishing platform. Aspect-ratio outputs are testable artifacts, but actual prospect demand, export production quality, costs and paid pilots must be independently validated.",
+  "capabilities": [
+    {
+      "name": "Release source normalization",
+      "description": "Read and distinguish published public GitHub releases from tag fallback in a typed adapter.",
+      "status": "shipped",
+      "evidence": "docs/github-release-ingestion.md"
+    },
+    {
+      "name": "Multi-format composition",
+      "description": "Define branded Remotion release-video specs and aspect-ratio presets.",
+      "status": "shipped",
+      "evidence": "docs/video-template-contract.md"
+    },
+    {
+      "name": "AgenFetch proof render",
+      "description": "Render the documented sample in three formats with an explicit command.",
+      "status": "shipped",
+      "evidence": "README.md"
+    },
+    {
+      "name": "Commercial self-service platform",
+      "description": "Validate demand and paid pilots before adding billing or distribution automation.",
+      "status": "planned"
+    }
+  ],
+  "roadmap": [
+    {
+      "name": "Reproducible demo",
+      "exitCriteria": "Render one inspected public release in all three formats and review frame-safe readability."
+    },
+    {
+      "name": "Evidence-based pricing",
+      "exitCriteria": "Measure render time/cost and validate buyer demand via defined prospect interviews."
+    },
+    {
+      "name": "Concierge pilot",
+      "exitCriteria": "Demonstrate a branded video delivery accepted by a real product team before SaaS expansion."
+    }
+  ],
+  "references": [
+    {
+      "name": "AppFactory README governance",
+      "url": "https://github.com/Trigenys/appfactory/blob/main/docs/product-readme-contract.md",
+      "relevance": "Single reusable evidence-backed documentation contract and quality workflow."
+    }
+  ],
+  "requiredHeadings": [
+    "From release to video",
+    "What the prototype proves",
+    "Engineering and format limits",
+    "Why this exists",
+    "Validation gates",
+    "Development",
+    "Repository status"
+  ],
+  "requiredTerms": [
+    "prototype",
+    "Remotion",
+    "9:16",
+    "1:1",
+    "16:9",
+    "GitHub"
+  ],
+  "requiredFiles": [
+    "docs/video-template-contract.md",
+    "docs/github-release-ingestion.md",
+    "video/Root.tsx",
+    "docs/unit-economics.md"
+  ],
+  "presentation": {
+    "variant": "centered",
+    "headline": "Turn every release into a story worth watching.",
+    "summary": "A reproducible release-to-video pipeline that transforms validated GitHub release content and product media into branded vertical, square and landscape MP4s.",
+    "badges": [
+      {
+        "label": "Stage",
+        "value": "Prototype",
+        "color": "orange",
+        "href": "#repository-status"
+      },
+      {
+        "label": "Output",
+        "value": "9:16 / 1:1 / 16:9",
+        "color": "2563eb",
+        "href": "#what-the-prototype-proves"
+      },
+      {
+        "label": "Renderer",
+        "value": "Remotion",
+        "color": "263238",
+        "href": "#from-release-to-video"
+      },
+      {
+        "label": "Input",
+        "value": "GitHub releases",
+        "color": "0969da",
+        "href": "#from-release-to-video"
+      }
+    ],
+    "navigation": [
+      {
+        "label": "Pipeline",
+        "href": "#from-release-to-video"
+      },
+      {
+        "label": "Formats",
+        "href": "#what-the-prototype-proves"
+      },
+      {
+        "label": "Limitations",
+        "href": "#engineering-and-format-limits"
+      },
+      {
+        "label": "Use case",
+        "href": "#why-this-exists"
+      },
+      {
+        "label": "Demand",
+        "href": "#validation-gates"
+      },
+      {
+        "label": "Run",
+        "href": "#development"
+      },
+      {
+        "label": "Docs",
+        "href": "docs/video-template-contract.md"
+      }
+    ]
+  }
+}
