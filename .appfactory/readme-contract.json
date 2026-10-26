@@ -25,7 +25,7 @@
       "name": "AgenFetch proof render",
       "description": "Render the documented sample in three formats with an explicit command.",
       "status": "shipped",
-      "evidence": "README.md"
+      "evidence": "video/AgenFetchReleaseVideo.tsx"
     },
     {
       "name": "Commercial self-service platform",
