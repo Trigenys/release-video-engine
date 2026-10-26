@@ -1,4 +1,48 @@
+<!-- appfactory:hero:start -->
+<div align="center">
+
 # Release Video Engine
+
+### Turn every release into a story worth watching.
+
+**A reproducible release-to-video pipeline that transforms validated GitHub release content and product media into branded vertical, square and landscape MP4s.**
+
+[![Stage: Prototype](https://img.shields.io/badge/Stage-Prototype-orange)](#repository-status)
+[![Output: 9:16 / 1:1 / 16:9](https://img.shields.io/badge/Output-9%3A16%20%2F%201%3A1%20%2F%2016%3A9-2563eb)](#what-the-prototype-proves)
+[![Renderer: Remotion](https://img.shields.io/badge/Renderer-Remotion-263238)](#from-release-to-video)
+[![Input: GitHub releases](https://img.shields.io/badge/Input-GitHub%20releases-0969da)](#from-release-to-video)
+
+[**Pipeline**](#from-release-to-video) · [**Formats**](#what-the-prototype-proves) · [**Limitations**](#engineering-and-format-limits) · [**Use case**](#why-this-exists) · [**Demand**](#validation-gates) · [**Run**](#development) · [**Docs**](docs/video-template-contract.md)
+
+</div>
+
+---
+<!-- appfactory:hero:end -->
+
+## From release to video
+
+```mermaid
+flowchart LR
+  G[GitHub release or tag] --> N[Validated release facts]
+  N --> S[Brand + screenshot story spec]
+  S --> R[Remotion compositions]
+  R --> V[Vertical 9:16]
+  R --> Q[Square 1:1]
+  R --> L[Landscape 16:9]
+```
+
+**A release is source data, not a ready-made ad.** The adapter distinguishes published releases from fallback tags; the video template separates product identity, highlights, CTA and screenshots from its output frame. [Ingestion contract](docs/github-release-ingestion.md) · [Reusable video schema](docs/video-template-contract.md).
+
+
+Implementation evidence: [AgenFetch release composition](video/AgenFetchReleaseVideo.tsx).
+
+## What the prototype proves
+
+The repository documents an **AgenFetch proof render** and supports output presets at 1080 × 1920, 1080 × 1080 and 1920 × 1080. Each intended H.264 MP4 is generated from a reproducible source spec; passing code checks does not replace watching the complete exported video.
+
+## Engineering and format limits
+
+**Prototype, not hosted publishing automation.** Social scheduling, multi-account billing, free-form text-to-video and commercial proof of demand remain out of scope. Render costs and quality must be measured, and claimed customers or pilot results must come from real validation. See [unit economics](docs/unit-economics.md) and [the outreach plan](docs/validation-offers-and-outreach.md).
 
 Automated **release-to-video** marketing for SaaS and developer-tool teams.
 
