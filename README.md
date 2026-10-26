@@ -33,6 +33,9 @@ flowchart LR
 
 **A release is source data, not a ready-made ad.** The adapter distinguishes published releases from fallback tags; the video template separates product identity, highlights, CTA and screenshots from its output frame. [Ingestion contract](docs/github-release-ingestion.md) · [Reusable video schema](docs/video-template-contract.md).
 
+
+Implementation evidence: [AgenFetch release composition](video/AgenFetchReleaseVideo.tsx).
+
 ## What the prototype proves
 
 The repository documents an **AgenFetch proof render** and supports output presets at 1080 × 1920, 1080 × 1080 and 1920 × 1080. Each intended H.264 MP4 is generated from a reproducible source spec; passing code checks does not replace watching the complete exported video.
