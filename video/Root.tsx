@@ -17,6 +17,7 @@ import {ShowcaseReleaseStill} from "./showcase/ShowcaseReleaseStill";
 import {ProductDemoVideo, type ProductDemoVideoProps} from "./ProductDemoVideo";
 import {productDemoDurationInFrames} from "./contracts/productDemo";
 import {atelierMaitreFleetDemo, atelierMaitreGeneralDemo} from "./data/atelierMaitre";
+import {atelierMaitreQuickDemo} from "./data/atelierMaitreQuick";
 
 const mediaHeavyCompositions = [
   {id: "FormbricksMediaHeavy-vertical-en", format: "vertical" as const, locale: "en" as const, width: 1080, height: 1920},
@@ -30,6 +31,16 @@ const PRODUCT_DEMO_FPS = 30;
 export function RemotionRoot() {
   return (
     <>
+      <Composition<any, ProductDemoVideoProps>
+        id="AtelierMaitre-Quick-FR"
+        component={ProductDemoVideo}
+        durationInFrames={productDemoDurationInFrames(atelierMaitreQuickDemo, PRODUCT_DEMO_FPS)}
+        fps={PRODUCT_DEMO_FPS}
+        width={1920}
+        height={1080}
+        defaultProps={{spec: atelierMaitreQuickDemo}}
+      />
+
       <Composition<any, ProductDemoVideoProps>
         id="AtelierMaitre-General-FR"
         component={ProductDemoVideo}
